@@ -92,6 +92,7 @@ var TestFramework={
 
 		/**
 		* Checks if value is a real object, e.g. not null and not an array.
+		* Date and RegExp objects are also considered objects.
 		*/
 		assertObject:function(val){
 			return typeof val==='object'&&val!==null&&Object.prototype.toString.apply(val)!=='[object Array]';},
