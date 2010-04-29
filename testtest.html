@@ -8,6 +8,10 @@
 <link rel="stylesheet" type="text/css" href="common.css">
 <script type="text/javascript" src="test/test.js"></script>
 <script type="text/javascript">
+/**
+* Tests the TestRunner. Should really be named 'testTestRunner',
+* but that sounds stupid.
+*/
 function testRunner(){
 	var result;
 	var output=function(obj){
@@ -42,6 +46,9 @@ function testRunner(){
 
 	runnerResults.appendChild(ul);}
 
+/**
+* Test framework's assert functions.
+*/
 function testAsserts(){
 	var assertResults=document.getElementById('results-asserts');
 	var ul=document.createElement('ul');
@@ -71,6 +78,8 @@ function testAsserts(){
 		'assertTruthy("foo")':a.assertTruthy("foo"),
 		'assertTruthy([])':a.assertTruthy([]),
 		'assertTruthy({})':a.assertTruthy({}),
+		'assertTruthy(/foo/)':a.assertTruthy(/foo/),
+		'assertTruthy(new Date())':a.assertTruthy(new Date()),
 		'assertFalsy(false)':a.assertFalsy(false),
 		'assertFalsy(0)':a.assertFalsy(0),
 		'assertFalsy(null)':a.assertFalsy(null),
@@ -116,12 +125,14 @@ function testAsserts(){
 		'assertNull(false)':a.assertNull(false),
 		'assertNull("")':a.assertNull(""),
 		'assertNull(0)':a.assertNull(0),
+		'assertNull(undefined)':a.assertNull(),
 		'assertUndefined(null)':a.assertUndefined(null),
 		'assertUndefined(false)':a.assertUndefined(false),
 		'assertUndefined(0)':a.assertUndefined(0),
 		'assertNotNull(null)':a.assertNotNull(null),
 		'assertNaN(15)':a.assertNaN(15),
 		'assertNaN(false)':a.assertNaN(false),
+		'assertNaN(+Infinity)':a.assertNaN(+Infinity),
 		'assertNotNaN(NaN)':a.assertNotNaN(NaN),
 		'assertTruthy(0)':a.assertTruthy(0),
 		'assertTruthy(null)':a.assertTruthy(null),
