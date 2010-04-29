@@ -1,0 +1,39 @@
+.results ul,
+.results li,
+.results p{
+	margin:0;
+	padding:0;}
+
+.results li,
+.results p{
+	margin-top:0.5em;
+	margin-bottom:0.5em;
+	margin-left:1em;
+	padding:0.5em;
+	list-style-type:none;}
+
+.results li,
+.results p.summary{
+	border-style:solid;
+	border-width:1px;}
+
+.results * .result{
+	font-weight:bold;}
+
+.results * .description{}
+
+.results .success{
+	border-color:#0f0;
+	color:#050;
+	background-color:#dfd;}
+
+.results .success .description{
+	color:#030;}
+
+.results .fail{
+	border-color:#f00;
+	color:#500;
+	background-color:#fdd;}
+
+.results .fail .description{
+	color:#300;}
