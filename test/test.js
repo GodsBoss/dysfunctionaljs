@@ -1,174 +1,94 @@
-var TestFramework={
-	asserts:{
+/**
+* The small test framework.
+*
+* Has one method, run(tests), where tests is an array of tests.
+*
+* A test is an object with two properties:
+*   description - A description of what is tested.
+*   test        - A function which does the testing.
+*
+* The test function is called with one parameter. This is an object,
+* which is created by the Runner constructor. It provides the assertion methods.
+*
+* The result is an array of test result. Every test result has these properties:
+*   description - The description as given by the test.
+*   assertions  - The number of assertions within the test.
+*   success     - true, if all assertions were successful, else false.
+*   failures    - An array containing all results of the assertions which failed.
+*/
+var TestFramework=(function(){
+	/**
+	* Test runner constructor.
+	* Provides assertion and helper functions.
+	*
+	* The only argument is a function 'out', which takes one parameter.
+	* This parameter is an assert result. If a test function calls
+	* an assert method of the runner object, the result of the
+	* assertion is the argument to 'out'.
+	* 
+	* @param function out
+	*/
+	function Runner(out){
 		/**
-		* Checks if a value is true.
+		* Asserts a value is truthy.
+		* @param value
 		*/
-		assertTrue:function(val){
-			return val===true;},
+		this.assertTruthy=function(value){
+			if(value){
+				out({success:true});}
+			else{
+				out({
+					success:false,
+					expected:'Truthy value.',
+					instead:value});}};
 
 		/**
-		* Checks if a value is false.
+		* Asserts the equality (neither strictness nor identity) of two values.
+		* @param expected
+		* @param real
 		*/
-		assertFalse:function(val){
-			return val===false;},
-
-		/**
-		* Checks if a value is null.
-		*/
-		assertNull:function(val){
-			return val===null;},
-
-		/**
-		* Checks if a value is undefined.
-		*/
-		assertUndefined:function(val){
-			return typeof val==='undefined';},
-
-		/**
-		* Checks if a value is not null.
-		*/
-		assertNotNull:function(val){
-			return val!==null;},
-
-		/**
-		* Checks if a value is NaN.
-		*/
-		assertNaN:function(val){
-			return isNaN(val);},
-
-		/**
-		* Checks if a value is not NaN.
-		*/
-		assertNotNaN:function(val){
-			return !isNaN(val);},
-
-		/**
-		* Checks if a value coerces to true.
-		*/
-		assertTruthy:function(val){
-			return !!val;},
-
-		/**
-		* Checks if a value coerces to false.
-		*/
-		assertFalsy:function(val){
-			return !val;},
-
-		/**
-		* Checks if two values are equal.
-		*/
-		assertEqual:function(val1, val2){
-			return val1==val2;},
-
-		/**
-		* Checks if two values are identical.
-		*/
-		assertIdentical:function(val1, val2){
-			return val1===val2;},
-
-		/**
-		* Checks if the property of a given object is equal to a given value.
-		*/
-		assertPropertyEquals:function(obj, prop, value){
-			return typeof obj!=='undefined'&&obj!==null&&obj[prop]==value;},
-
-		/**
-		* Checks if a property exists.
-		*/
-		assertPropertyExists:function(obj, prop){
-			return obj.hasOwnProperty(prop);},
-
-		/**
-		* Checks if value is a boolean.
-		*/
-		assertBoolean:function(val){
-			return typeof val==='boolean';},
-
-		/**
-		* Checks if value is a string.
-		*/
-		assertString:function(val){
-			return typeof val==='string';},
-
-		/**
-		* Checks if value is a real object, e.g. not null and not an array.
-		* Date and RegExp objects are also considered objects.
-		*/
-		assertObject:function(val){
-			return typeof val==='object'&&val!==null&&Object.prototype.toString.apply(val)!=='[object Array]';},
-
-		/**
-		* Checks if a value is an array. Uses the miller device.
-		*/
-		assertArray:function(val){
-			return typeof val!=='undefined'&&val!==null&&Object.prototype.toString.apply(val)==='[object Array]';},
-
-		/**
-		* Checks if a value is a number, either finite, infinite or NaN.
-		*/
-		assertNumber:function(val){
-			return typeof val==='number';},
-
-		/**
-		* Checks if a value is finite. Does not only apply to numbers.
-		*/
-		assertFinite:function(val){
-			return isFinite(val);},
-
-		/**
-		* Checks if a value is not finite. Does not only apply to numbers.
-		*/
-		assertNotFinite:function(val){
-			return !isFinite(val);},
-
-		/**
-		* Checks if a value is positive infinity.
-		*/
-		assertPositiveInfinity:function(val){
-			return val===Infinity;},
-
-		/**
-		* Checks if a value is negative infinity.
-		*/
-		assertNegativeInfinity:function(val){
-			return val===-Infinity;}},
+		this.assertEqual=function(expected, real){
+			if(expected==real){
+				out({success:true});}
+			else{
+				out({
+					success:false,
+					expected:expected,
+					instead:real});}};}
 
 	/**
-	* Test runner class.
+	* Creates an acceptor function which can be used as a constructor argument
+	* for Runner.
+	*
+	* The function distributes successful assertion results to the successes
+	* argument and failures to the failures argument.
+	*
+	* @param array successes
+	* @param array failures
 	*/
-	TestRunner:function(asserts, output){
-		var numberOfTests=0;
-		var fails=0;
+	function outInjector(successes, failures){
+		return function(result){
+			(result.success?successes:failures).push(result);};}
 
-		for(var assert in asserts){
-			this[assert]=(function(assertF){
-				return function(/* args */){
-					if(!assertF.apply(null, arguments)){
-						throw new Error();}};})(asserts[assert]);}
-
-		function runTest(test, fw){
-			numberOfTests++;
-			try{
-				test.test(fw);
-				return{
-					success:true,
-					description:test.description};}
-			catch(e){
-				fails++;
-				return{
-					success:false,
-					description:test.description};}}
-
-		this.run=function(tests){
+	return {
+		/**
+		* Runs the tests.
+		*
+		* @param array tests
+		* @param array Test results.
+		*/
+		run:function(tests){
+			var results=[];
 			for(var i=0,l=tests.length;i<l;i++){
-				output(runTest(tests[i], this));}};
-
-		this.reset=function(){
-			numberOfTests=0;
-			fails=0;};
-
-		this.summary=function(){
-			return{
-				tests:numberOfTests,
-				failures:fails,
-				successes:numberOfTests-fails};};}};
+				var test=tests[i];
+				var assertSuccesses=[];
+				var assertFailures=[];
+				var testResult={description:test.description};
+				test.test(new Runner(outInjector(assertSuccesses, assertFailures)));
+				testResult.assertions=assertSuccesses.length+assertFailures.length;
+				testResult.success=assertFailures.length==0;
+				testResult.failures=assertFailures;
+				results.push(testResult);
+				}
+			return results;}};
+})();

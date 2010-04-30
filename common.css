@@ -12,10 +12,15 @@
 	padding:0.5em;
 	list-style-type:none;}
 
+.results li{
+	border-width:1px;}
+
 .results li,
 .results p.summary{
-	border-style:solid;
-	border-width:1px;}
+	border-style:solid;}
+
+.results p.summary{
+	border-width:2px;}
 
 .results * .result{
 	font-weight:bold;}
@@ -30,10 +35,18 @@
 .results .success .description{
 	color:#030;}
 
-.results .fail{
+.results .failure{
 	border-color:#f00;
 	color:#500;
 	background-color:#fdd;}
 
-.results .fail .description{
+.results .failure .description{
 	color:#300;}
+
+.results .failure .success{
+	background-color:#fdd;
+	color:#500;}
+
+.results .success .failure{
+	background-color:#dfd;
+	color:#050;}
