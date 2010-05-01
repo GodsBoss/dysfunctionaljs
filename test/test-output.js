@@ -52,7 +52,7 @@ function createOutput(doc, target){
 		summary.className='summary '+(failures?'failure':'success');
 		summary.innerHTML=
 			'<span class="result">'+(failures?'Failure':'Success')+':</span> '+
-			'From <span class="tests">'+numberOfTests+'</span> tests,'+
+			'From <span class="tests">'+numberOfTests+'</span> tests, '+
 			'<span class="success">'+successes+'</span> succeeded and '+
 			'<span class="failure">'+failures+'</span> failed.';
 		target.appendChild(summary);
