@@ -43,6 +43,19 @@ var TestFramework=(function(){
 					instead:value});}};
 
 		/**
+		* Asserts a value is falsy.
+		* @param value
+		*/
+		this.assertFalsy=function(value){
+			if(!value){
+				out({success:true});}
+			else{
+				out({
+					success:false,
+					expected:'Falsy value.',
+					instead:value});}};
+
+		/**
 		* Asserts the equality (neither strictness nor identity) of two values.
 		* @param expected
 		* @param real
