@@ -225,7 +225,32 @@ function runTests(lib){
 					fw.assertEqual(6, result2[0]);
 					fw.assertEqual(4, result2[1]);},
 				'description':'Array function: filter',
-				'functions':['filter']}
+				'functions':['filter']},
+			{
+				'test':function(fw){
+					var testArray=[8,5,3,9,1];
+					fw.assertEqual(8, lib.head(testArray)[0]);
+					fw.assertEqual(1, lib.tail(testArray)[0]);
+					var r1=lib.head(testArray, 3);
+					var r2=lib.tail(testArray, 3);
+					fw.assertEqual(3, r1.length);
+					fw.assertEqual(3, r2.length);
+					fw.assertEqual(8, r1[0]);
+					fw.assertEqual(5, r1[1]);
+					fw.assertEqual(3, r1[2]);
+					fw.assertEqual(3, r2[0]);
+					fw.assertEqual(9, r2[1]);
+					fw.assertEqual(1, r2[2]);
+					var r3=lib.head([1,2],5);
+					var r4=lib.tail([1,2],5);
+					fw.assertEqual(2, r3.length);
+					fw.assertEqual(2, r4.length);
+					fw.assertEqual(1, r3[0]);
+					fw.assertEqual(2, r3[1]);
+					fw.assertEqual(1, r4[0]);
+					fw.assertEqual(2, r4[1]);},
+				'description':'Array functions: head, tail',
+				'functions':['head', 'tail']}
 		];}
 
 	var tests=getTests();

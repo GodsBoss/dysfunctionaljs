@@ -65,6 +65,8 @@
 <dd>Returns the first element of <var>arr</var>. Throws a <code>TypeError</code> if the array is empty.</dd>
 <dt><code>forEach(<var>arr</var>, <var>func</var> [, <var>context</var>])</code></dt>
 <dd>Calls <var>func</var> for all elements of <var>arr</var> with <var>context</var> as <code>this</code>. Roughly equivalent to <code><var>arr</var>.forEach(<var>func</var>, <var>context</var>)</code>.</dd>
+<dt><code>head(<var>arr</var> [, <var>n</var>])</code></dt>
+<dd>Returns the first <var>n</var> elements of <var>arr</var>. The default value for <var>n</var> is 1.</dd>
 <dt><code>indexOf(<var>arr</var>, <var>value</var> [, <var>startIndex</var>])</code></dt>
 <dd>Returns the index of the first appearance of <var>value</var> within <var>arr</var>, or <code>-1</code>, if that value does not exist within <var>arr</var>. The search will start at <var>startIndex</var> or at <code>0</code>, if <var>startIndex</var> is not given.</dd>
 <dt><code>last(<var>arr</var>)</code></dt>
@@ -79,6 +81,8 @@
 <dd>Reduces the values of <var>arr</var> via successive calls to <var>func</var> to a result and returns it. The array is processed from end (index <code><var>arr</var>.length-1</code>) to start (index 0). Roughly equivalent to <code><var>arr</var>.reduceRight(<var>func</var>, <var>startValue</var>)</code>.</dd>
 <dt><code>some(<var>arr</var>, <var>func</var> [, <var>context</var>)</code></dt>
 <dd>Checks if at least one element of <var>array</var> satisfies a given condition. Roughly equivalent to <code><var>arr</var>.some(<var>func</var>, <var>context</var>)</code>. Always <code>false</code> for empty arrays.</dd>
+<dt><code>tail(<var>arr</var> [, <var>n</var>])</code></dt>
+<dd>Returns the last <var>n</var> elements of <var>arr</var>. The default value for <var>n</var> is 1.</dd>
 </dl>
 </div>
 <div id="boolean-functions" class="subsection">
@@ -183,6 +187,7 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <li><code>first</code></li>
 <li><code>gt</code></li>
 <li><code>gte</code></li>
+<li><code>head</code></li>
 <li><code>hold</code></li>
 <li><code>id</code></li>
 <li><code>indexOf</code></li>
@@ -201,6 +206,7 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <li><code>reciprocal</code></li>
 <li><code>subtract</code></li>
 <li><code>sum</code></li>
+<li><code>tail</code></li>
 </ul>
 <h4>Likely pure</h4>
 <ul>

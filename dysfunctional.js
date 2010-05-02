@@ -325,6 +325,24 @@ var dysfunctional=(function(){
 		else{
 			throw new TypeError('Cannot extract last element of an empty array.');}}
 
+	/**
+	* Returns the first n elements. If n is not given, return the first element as an array.
+	* @param array a
+	* @param number|undefined n
+	* @return array
+	*/
+	function head(a, n){
+		return typeof n==='number'?Array.prototype.slice.call(a, 0, n):[a[0]];}
+
+	/**
+	* Returns the last n elements. If n is not given, return the last element as an array.
+	* @param array a
+	* @param number|undefined n
+	* @return array
+	*/
+	function tail(a, n){
+		return typeof n==='number'?Array.prototype.slice.call(a, -n):[a[a.length-1]];}
+
 	// Implementation of functional variants of some methods found in
 	// ECMA-262 5th Ed., but not ECMA-262 3rd Ed.
 
@@ -508,6 +526,7 @@ var dysfunctional=(function(){
 	lib.forEach=forEach;
 	lib.gt=gt;
 	lib.gte=gte;
+	lib.head=head;
 	lib.hold=hold;
 	lib.id=id;
 	lib.ifElse=ifElse;
@@ -533,5 +552,6 @@ var dysfunctional=(function(){
 	lib.some=some;
 	lib.subtract=subtract;
 	lib.sum=sum;
+	lib.tail=tail;
 
 	return lib;})();
