@@ -43,7 +43,9 @@ function createOutput(doc, target){
 				var failList='';
 				for(var j=0,max=result.failures.length;j<max;j++){
 					var failure=result.failures[j];
-					failList+='<li>'+'Expected: '+failure.expected+'<br>Instead: '+failure.instead+'</li>';}
+					failList+='<li>'+'Expected: '+failure.expected+'<br>Instead: '+failure.instead+
+					(failure.message?'<br>Message: '+failure.message:'')+
+					'</li>';}
 				item.innerHTML+='<ul>'+failList+'</ul>';
 				item.className='failure';
 				failures++;

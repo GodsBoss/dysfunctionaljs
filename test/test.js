@@ -33,41 +33,44 @@ var TestFramework=(function(){
 		* Asserts a value is truthy.
 		* @param value
 		*/
-		this.assertTruthy=function(value){
+		this.assertTruthy=function(value, msg){
 			if(value){
 				out({success:true});}
 			else{
 				out({
 					success:false,
 					expected:'Truthy value.',
-					instead:value});}};
+					instead:value,
+					message:msg||''});}};
 
 		/**
 		* Asserts a value is falsy.
 		* @param value
 		*/
-		this.assertFalsy=function(value){
+		this.assertFalsy=function(value, msg){
 			if(!value){
 				out({success:true});}
 			else{
 				out({
 					success:false,
 					expected:'Falsy value.',
-					instead:value});}};
+					instead:value,
+					message:msg||''});}};
 
 		/**
 		* Asserts the equality (neither strictness nor identity) of two values.
 		* @param expected
 		* @param real
 		*/
-		this.assertEqual=function(expected, real){
+		this.assertEqual=function(expected, real, msg){
 			if(expected==real){
 				out({success:true});}
 			else{
 				out({
 					success:false,
 					expected:expected,
-					instead:real});}};}
+					instead:real,
+					message:msg||''});}};}
 
 	/**
 	* Creates an acceptor function which can be used as a constructor argument
