@@ -1,8 +1,11 @@
 /**
 * The dysfunctional JS library.
 *
+* Updates and documentation can be found here: http://dysfunctionaljs.org/
+*
 * This library is free software. Get your copy under the terms of the
-* GNU GPL v3
+* GNU GPL v3. A copy of this license (gpl.txt) should have been provided.
+* If not, you can find one at: http://dysfunctionaljs.org/gpl.txt
 */
 var dysfunctional=(function(){
 	var lib={};
