@@ -50,3 +50,13 @@
 .results .success .failure{
 	background-color:#dfd;
 	color:#050;}
+
+#documentation dd{
+	margin-bottom:10px;}
+
+#documentation dt{
+	margin-top:10px;}
+
+#documentation dd p{
+	margin-bottom:0;
+	margin-top:0;}

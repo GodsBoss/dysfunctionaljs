@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head><title>dysfunctional.JS Test Suite</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link rel="stylesheet" type="text/css" href="common.css">
+<script type="text/javascript" src="dysfunctional.js"></script>
+<script type="text/javascript" src="test/test.js"></script>
+<script type="text/javascript" src="test/test-output.js"></script>
+<script type="text/javascript">
+function runTests(lib){
+	var hint=document.getElementById('run-hint');
+	hint.parentNode.removeChild(hint);
+	var lib=dysfunctional; // Shortcut
+
+	// The tests.
+	function getTests(){
+		// Some functions used in the tests.
+		function foo(){
+			return 'foo';}
+
+		function bar(){
+			return 'bar';}
+
+		function xyz(){
+			return 'xyz';}
+
+		function thisFoo(){
+			return this.foo;}
+
+		function thisBar(){
+			return this.bar;}
+
+		function thisXyz(){
+			return this.xyz;}
+
+		// Some objects used in the tests.
+		var o={foo:'oof',bar:'rab',xyz:'zyx'};
+		var oFoo={val:'foo'};
+		var oBar={val:'bar'};
+		var oXyz={val:'xyz'};
+
+		return [
+			{
+				'test':function(fw){
+					fw.assertEqual('foo', lib.id('foo'));},
+				'description':'id()',
+				'functions':['id']},
+			{
+				'test':function(fw){
+					fw.assertEqual('bar', lib.opIfElse(false, 'foo', 'bar'));
+					fw.assertEqual('bar', lib.opIfElse(false, 'foo', 'bar'));
+					fw.assertEqual(foo(), lib.ifElse(true, foo, bar));
+					fw.assertEqual(bar(), lib.ifElse(false, foo, bar));
+					fw.assertEqual(o.foo, lib.ifElse(true, thisFoo, thisBar, o));
+					fw.assertEqual(o.bar, lib.ifElse(false, thisFoo, thisBar, o));},
+				'description':'Functionified conditionals: opIfElse, ifElse',
+				'functions':['opIfElse','ifElse']},
+			{
+				'test':function(fw){
+					fw.assertTruthy(lib.lt(1,2));
+					fw.assertTruthy(lib.lt(-Infinity, 100));
+					fw.assertFalsy(lib.lt(-4, -6));
+					fw.assertTruthy(lib.lte(-1,1));
+					fw.assertTruthy(lib.lte(50000, Infinity));
+					},
+				'description':'Number comparisons: lt, lte, gt, gte',
+				'functions':['lt','lte','gt','gte']},
+			{
+				'test':function(fw){
+					fw.assertEqual(15, lib.add(-5, 20));
+					fw.assertEqual(20, lib.subtract(30, 10));
+					fw.assertEqual(12, lib.multiply(-3, -4));
+					fw.assertEqual(11, lib.divide(110, 10));
+					fw.assertEqual(3, lib.negate(-3));
+					fw.assertEqual(4, lib.reciprocal(0.25));},
+				'description':'Number arithmetic: add, subtract, multiply, divide, negate, reciprocal',
+				'functions':['add','subtract','multiply','divide','negate','reciprocal']},
+			{
+				'test':function(fw){
+					fw.assertEqual(0, lib.sum());
+					fw.assertEqual(5, lib.sum(1,2,0,3,4,-5));
+					fw.assertEqual(1, lib.product());
+					fw.assertEqual(60, lib.product(-3,4,1,-5));
+				},
+				'description':'Number arithmetic: sum, product',
+				'functions':['sum','product']},
+			{
+				'test':function(fw){
+					fw.assertEqual('neg', lib.opIfSgn(-3, 'neg', 'zero', 'pos'));
+					fw.assertEqual('zero', lib.opIfSgn(0, 'neg', 'zero', 'pos'));
+					fw.assertEqual('pos', lib.opIfSgn(0.25, 'neg', 'zero', 'pos'));
+					fw.assertEqual('foo', lib.ifSgn(-1.2, foo, bar, xyz));
+					fw.assertEqual('bar', lib.ifSgn(0, foo, bar, xyz));
+					fw.assertEqual('xyz', lib.ifSgn(15, foo, bar, xyz));
+					fw.assertEqual('oof', lib.ifSgn(-1.2, thisFoo, thisBar, thisXyz, o));
+					fw.assertEqual('rab', lib.ifSgn(0, thisFoo, thisBar, thisXyz, o));
+					fw.assertEqual('zyx', lib.ifSgn(35, thisFoo, thisBar, thisXyz, o));},
+				'description':'opIfSgn, ifSgn',
+				'functions':['opIfSgn','ifSgn']},
+			{
+				'test':function(fw){
+					fw.assertTruthy(lib.not(false));
+					fw.assertFalsy(lib.not(true));},
+				'description':'not',
+				'functions':['not']},
+			{
+				'test':function(fw){
+					function f(x){
+						return x*this.y;}
+					var g=lib.bind(f, {y:20});
+					var obj={g:g};
+					var h=lib.hold(f, 2);
+					fw.assertEqual(60, obj.g(3));
+					fw.assertEqual(24, h.call({y:12}, 4));},
+				'description':'bind, hold',
+				'functions':['bind','hold']},
+			{
+				'test':function(fw){
+					var o1={x:5},o2={x:2,y:3},o3={y:4,z:1};
+					var merged=lib.merge(o1, o2, o3);
+					fw.assertEqual(2, merged.x);
+					fw.assertEqual(4, merged.y);
+					fw.assertEqual(1, merged.z);
+					var target={x:8,y:6,z:7};
+					lib.inject(target, o2, o1);
+					fw.assertEqual(5, target.x);
+					fw.assertEqual(3, target.y);
+					fw.assertEqual(7, target.z);},
+				'description':'Object functions: inject, merge',
+				'functions':['merge','inject']},
+			{
+				'test':function(fw){
+					var testArray=[1,2,3,1,2,3,1,2,3];
+					fw.assertEqual(-1, lib.indexOf(testArray, 4), 'Value not in array.');
+					fw.assertEqual(-1, lib.indexOf(testArray, 1, 7), 'Start index too high to find the value.');
+					fw.assertEqual(1, lib.indexOf(testArray, 2));
+					fw.assertEqual(3, lib.indexOf(testArray, 1, 2));
+					fw.assertEqual(3, lib.indexOf(testArray, 1, 3));
+					fw.assertEqual(-1, lib.lastIndexOf(testArray, 4), 'Value not in array.');
+					fw.assertEqual(-1, lib.lastIndexOf(testArray, 3, 1), 'Start index too low to find the value.');
+					fw.assertEqual(8, lib.lastIndexOf(testArray, 3));
+					fw.assertEqual(2, lib.lastIndexOf(testArray, 3, 4));
+					fw.assertEqual(2, lib.lastIndexOf(testArray, 3, 2));},
+				'description':'Array functions: indexOf, lastIndexOf',
+				'functions':['indexOf','lastIndexOf']},
+			{
+				'test':function(fw){
+					var testArray=[5,3,-2,9];
+					fw.assertEqual(5, lib.first(testArray));
+					fw.assertEqual(9, lib.last(testArray));},
+				'description':'Array functions: first, last',
+				'functions':['first','last']},
+			{
+				'test':function(fw){
+					var testArray=[3, 5, 9, 20];
+					function testFunc(a, b){
+						return b-a;}
+					fw.assertEqual(55, lib.reduce([55], testFunc));
+					fw.assertEqual(55, lib.reduceRight([55], testFunc));
+					fw.assertEqual(56, lib.reduce([], testFunc, 56));
+					fw.assertEqual(56, lib.reduceRight([], testFunc, 56));
+					fw.assertEqual(13, lib.reduce(testArray, testFunc));
+					fw.assertEqual(14, lib.reduce(testArray, testFunc, 1));
+					fw.assertEqual(-13, lib.reduceRight(testArray, testFunc));
+					fw.assertEqual(-12, lib.reduceRight(testArray, testFunc, 1));},
+				'description':'Array functions: reduce, reduceRight',
+				'functions':['reduce','reduceRight']},
+			{
+				'test':function(fw){
+					fw.assertTruthy(lib.every([], lib.noOp), 'every([], ...) returns true.');
+					fw.assertTruthy(lib.every([], lib.noOp, {}), 'every([], ...) returns true.');
+					fw.assertFalsy(lib.some([], lib.noOp));
+					fw.assertFalsy(lib.some([], lib.noOp, {}));
+					function even(n,i,a){
+						return !(n%2);}
+					function mod(n,i,a){
+						return !(n%this.div);}
+					fw.assertTruthy(lib.every([2,4,6,8,10], even), '2,4,6,8,10 are even.');
+					fw.assertTruthy(lib.every([2,4,6,8,10], mod, {div:2}), '2,4,6,8,10 are even (with context).');
+					fw.assertFalsy(lib.every([2,4,5,8,10], even));
+					fw.assertFalsy(lib.every([2,4,6,9,10], mod, {div:2}));
+					fw.assertTruthy(lib.some([1,3,4,6,9], even), 'Some elements are even.');
+					fw.assertTruthy(lib.some([2,5,7,8,9], mod, {div:2}), 'Some elements are even (with context).');
+					fw.assertFalsy(lib.some([1,3,5,7,9], even));
+					fw.assertFalsy(lib.some([1,3,5,7,9], mod, {div:2}));},
+				'description':'Array functions: every, some',
+				'functions':['every','some']},
+			{
+				'test':function(fw){
+					var arr=[2,3,5];
+					var mapResult1=lib.map(arr, function(n,i,a){return n*n+i;});
+					var mapResult2=lib.map(arr, function(n,i,a){return (n*n+i)+this.suffix;}, {suffix:'px'});
+					fw.assertEqual(4, mapResult1[0]);
+					fw.assertEqual(10, mapResult1[1]);
+					fw.assertEqual(27, mapResult1[2]);
+					fw.assertEqual('4px', mapResult2[0]);
+					fw.assertEqual('10px', mapResult2[1]);
+					fw.assertEqual('27px', mapResult2[2]);
+					var forEachResult1='';
+					var forEachResult2='';
+					lib.forEach(arr, function(n,i,a){forEachResult1+=n+''+i+''+a.length+'_';});
+					lib.forEach(arr, function(n,i,a){forEachResult2+=n+''+i+''+a.length+this.suffix;}, {suffix:'-'});
+					fw.assertEqual('203_313_523_', forEachResult1);
+					fw.assertEqual('203-313-523-', forEachResult2);},
+				'description':'Array functions: forEach, map',
+				'functions':['forEach','map']},
+			{
+				'test':function(fw){
+					fw.assertEqual(0, lib.filter([1,2,3],function(n,i,a){return false;}).length);
+					fw.assertEqual(0, lib.filter([1,2],function(n,i,a){return !this.value;},{value:true}).length);
+					function f(n,i,a){
+						return n+i==a.length;}
+					function g(n,i,a){
+						return n+i==a.length+this.bonus;}
+					var result1=lib.filter([5,2,3,2,6],f);
+					var result2=lib.filter([3,6,4,4,1],g,{bonus:2});
+					fw.assertEqual(3, result1.length);
+					fw.assertEqual(5, result1[0]);
+					fw.assertEqual(3, result1[1]);
+					fw.assertEqual(2, result1[2]);
+					fw.assertEqual(2, result2.length);
+					fw.assertEqual(6, result2[0]);
+					fw.assertEqual(4, result2[1]);},
+				'description':'Array function: filter',
+				'functions':['map']}
+		];}
+
+	var tests=getTests();
+
+	// Find untested functions.
+	var fns=[];
+	for(var prop in lib){
+		if (lib.hasOwnProperty(prop)){
+			fns.push(prop);}}
+
+	var tested=[];
+	for(var i=0,l=tests.length;i<l;i++){
+		var testedFns=tests[i].functions;
+		for(var j=0,max=testedFns.length;j<max;j++){
+			tested.push(testedFns[j]);}}
+
+	function inside(arr, val){
+		for(var i=0,l=arr.length;i<l;i++){
+			if (arr[i]==val){
+				return true;}}
+		return false;}
+
+	var untested=[];
+	for(var i=0,l=fns.length;i<l;i++){
+		if (!inside(tested, fns[i])){
+			untested.push(fns[i]);}}
+
+	if (untested.length){
+		document.getElementById('results').innerHTML='These functions have not been tested: '+untested.join(', ')+'.';}
+	else{
+		document.getElementById('results').innerHTML='Congratulations, all functions have been tested.';}
+
+	createOutput(document, document.getElementById('results'))(TestFramework.run(tests));
+	}
+</script>
+</head>
+<body>
+<h1>dysfunctional.JS Test Suite</h1>
+<h2>Results</h2>
+<p>To see the results, run the tests.</p>
+<p id="run-hint">If javascript is activated, you can <input type="button" onclick="runTests(dysfunctional);" value="run the tests!"></p>
+<noscript><p>Sadly, without javascript the test suite cannot run.</p></noscript>
+<div id="results" class="results"></div>
+</body>
+</html>

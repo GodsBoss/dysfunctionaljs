@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head><title>dysfunctional.JS</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link rel="stylesheet" type="text/css" href="common.css">
+</head>
+<body>
+<h1>dysfunctional.JS</h1>
+<p>This is my <a href="#license">free</a> JavaScript, or ECMAScript, library. Although it may be dysfunctional, it's still functional.</p>
+<p>Because I like reinventing the wheel, a small self-made framework is used for testing the library. Just <a href="test.html">test the library</a>!</p>
+<div id="spirit" class="section">
+<h2>Spirit</h2>
+<p>The library is mostly functional, but provides optional prototypal extensions of <code>Array</code>, <code>Boolean</code>, <abbr title="et cetera">etc.</abbr> (but not <code>Object</code>). The namespace is flat, there is no <code>library.module.submodule.evenmorsubmodule.RandomClass.property</code> madness. All exposed functions can be found directly as properties of the library. If you think "dysfunctional" is a long name, just rename it, it should be easy.</p>
+<p>I try to make dysfunctional.JS as pure as possible, <abbr id="id est">i.e.</abbr> the functions should have very few side effects and create new objects, functions or whatever instead.</p>
+<h3>Pureness</h3>
+<p>A function is called “pure” if it does not have any side effects, meaning its arguments and its environment remains unchanged after execution, and “impure” if not. However, there are functions, namely <code>forEach</code>, which happen to just call other functions but do not return a result value. Although they are pure themselves, without an impure function to be called they are meaningless, so a call usually means there <em>are</em> side effects. Additionally, many other pure functions also call other functions, which may or may be not pure. Summarized, these are the kinds of functions the library contains:</p>
+<dl>
+<dt>Pure</dt>
+<dd>Never has side effects.</dd>
+<dt>Likely pure</dt>
+<dd>Pure, but can have side effects. You are strongly encouraged to avoid side effects!</dd>
+<dt>Unlikely pure</dt>
+<dd>Pure itself, but calls most likely have side effects.</dd>
+<dt>Impure</dt>
+<dd>Function’s purpose includes side effects.</dd>
+</dl>
+<p>The <a href="#documentation">documentation</a> contains <a href="#functions-by-pureness">every function’s pureness</a>.</p>
+<h3>Functionification of language constructs</h3>
+<p>JavaScript has first-class functions, but operators (like <code>+</code> or <code>*</code>) are not amongst them, as aren't <code>if</code>-<code>else</code>-constructs or loops (although ECMA-262 5th edition added some useful looping methods for Arrays). Thus I implemented these.</p>
+<h3>Higher-order functions</h3>
+<p>The real strength of functional languages is the combination of existing functions into new ones. Therefore some higher-order functions, most of them known from other languages like Haskell, are provided.</p>
+<h3>Prototypal extensions</h3>
+<p>Prototypal extensions are possible, but inactive by default. You can activate them, if you want.</p>
+<h3>Chaining</h3>
+<p>At the moment, chaining is neither implemented nor even planned.</p>
+</div>
+<div id="license" class="section">
+<h2>License</h2>
+<p>dysfunctional.JS ist distributed under the terms of the <a href="gpl.txt"><abbr title="GNU’s Not Unix">GNU</abbr> <abbr title="General Public License">GPL</abbr> v3</a>.</p>
+</div>
+<div id="documentation" class="section">
+<h2>Documentation</h2>
+<div id="function-signatures" class="subsection">
+<h3>Function signatures</h3>
+<p>A function can have required parameters, which must always be present and either optional parameters or take any number of arguments. A function cannot have both optional and any arguments.</p>
+<ul>
+<li>Required parameters are just written normally, e.g. <code>function foobar(<var>param1</var>, <var>param2</var>, <var>param3</var>)</code>.</li>
+<li>Optional parameters are enclosed in brackets, e.g. <code>function foobar(<var>param1</var> [, <var>param2</var> [, <var>param3</var>]])</code>. Optional parameters are not equal, those with higher indices can only be present if those with lower indices are also used.</li>
+<li>If a function takes an arbitrary number of parameters, this is marked with an asterisk, e.g. <code>function foobar(<var>param1</var>, <var>params*</var>)</code>.</li>
+</ul>
+</div>
+<div id="array-functions" class="subsection">
+<h3>Array functions</h3>
+<p>All functions which manipulate arrays or operate on them.</p>
+<dl>
+<dt><code>every(<var>arr</var>, <var>func</var>, [, <var>context</var>])</code></dt>
+<dd>Checks if for every element of <var>arr</var> a condition is <code>true</code>. Roughly equivalent to <code><var>arr.every(<var>func</var>, <var>context</var>)</code>. Always <code>true</code> for empty arrays.</dd>
+<dt><code>filter(<var>arr</var>, <var>func</var> [, <var>context</var>])</code></dt>
+<dd>Collects only elements of <var>arr</var>, for which the return value of a call to <var>func</var> with <var>context</var> as <code>this</code> value coerces to <code>true</code>. Roughly equivalent to <code><var>arr</var>.filter(<var>func</var>, <var>context</var>)</code>.</dd>
+<dt><code>first(<var>arr</var>)</code></dt>
+<dd>Returns the first element of <var>arr</var>. Throws a <code>TypeError</code> if the array is empty.</dd>
+<dt><code>forEach(<var>arr</var>, <var>func</var> [, <var>context</var>])</code></dt>
+<dd>Calls <var>func</var> for all elements of <var>arr</var> with <var>context</var> as <code>this</code>. Roughly equivalent to <code><var>arr</var>.forEach(<var>func</var>, <var>context</var>)</code>.</dd>
+<dt><code>indexOf(<var>arr</var>, <var>value</var> [, <var>startIndex</var>])</code></dt>
+<dd>Returns the index of the first appearance of <var>value</var> within <var>arr</var>, or <code>-1</code>, if that value does not exist within <var>arr</var>. The search will start at <var>startIndex</var> or at <code>0</code>, if <var>startIndex</var> is not given.</dd>
+<dt><code>last(<var>arr</var>)</code></dt>
+<dd>Returns the last element of <var>arr</var>. Throws a TypeError, if the array is empty.</dd>
+<dt><code>lastIndexOf(<var>arr</var>, <var>value</var> [, <var>startIndex</var>])</code><dt>
+<dd>Returns the index of the last appearance of <var>value</var> within <var>arr</var>, or <code>-1</code>, if that value does not exist within <var>arr</var>. The search will start at <var>startIndex</var> or, if it is missing, at <code><var>arr</var>.length</code>.</dd>
+<dt><code>map(<var>arr</var>, <var>func</var> [, <var>context</var>)</code></dt>
+<dd>Creates a new array by applying <var>func</var> to all elements of <var>arr</var> with <var>context</var> as <code>this</code> value and collecting the results. Roughly equivalent to <code><var>arr</var>.map(<var>func</var>, <var>context</var>)</code>.</dd>
+<dt><code>reduce(<var>arr</var>, <var>func</var> [, <var>startValue</var>])</dt>
+<dd>Reduces the values of <var>arr</var> via successive calls to <var>func</var> to a result and returns it. The array is processed from start (index 0) to end (index <code><var>arr</var>.length-1</code>). Roughly equivalent to <code><var>arr</var>.reduce(<var>func</var>, <var>startValue</var>)</code>.</dd>
+<dt><code>reduceRight(<var>arr</var> [, <var>startValue</var>])</code></dt>
+<dd>Reduces the values of <var>arr</var> via successive calls to <var>func</var> to a result and returns it. The array is processed from end (index <code><var>arr</var>.length-1</code>) to start (index 0). Roughly equivalent to <code><var>arr</var>.reduceRight(<var>func</var>, <var>startValue</var>)</code>.</dd>
+<dt><code>some(<var>arr</var>, <var>func</var> [, <var>context</var>)</code></dt>
+<dd>Checks if at least one element of <var>array</var> satisfies a given condition. Roughly equivalent to <code><var>arr</var>.some(<var>func</var>, <var>context</var>)</code>. Always <code>false</code> for empty arrays.</dd>
+</dl>
+</div>
+<div id="boolean-functions" class="subsection">
+<h3>Boolean functions</h3>
+<dl>
+<dt><code>ifElse(<var>b</var>, <var>fIf</var>, <var>fElse</var> [, <var>context</var>])</code></dt>
+<dd>If <var>b</var> is truthy, <var>fIf</var> is called, else <var>fElse</var>. If <var>context</var> is given, it's the <code>this</code> value of the function. The return value is the return value of the called function.</dd>
+<dt><code>not(<var>b</var>)</code></dt>
+<dd>Returns <code>!<var>b</var></code>.</dd>
+<dt><code>opIfElse(<var>b</var>, <var>ifValue</var>, <var>elseValue</var>)</code></dt>
+<dd>Returns <var>ifValue</var>, if <var>b</var> is truthy, else <var>elseValue</var>.</dd>
+</dl>
+</div>
+<div id="function-functions" class="subsection">
+<h3>Function functions</h3>
+<p>Create functions out of anything!</p>
+<dl>
+<dt><code>bind(<var>f</var>, <var>o</var>)</code></dt>
+<dd>Takes a function <var>f</var> and an object <var>o</var> and returns a new function, which takes all arguments, calls <var>f</var> with them as arguments and <var>o</var> as the <var>this</var> value and returns the result.</dd>
+<dt><code>hold(<var>f</var> [, <var>args*</var>])</code></dt>
+<dd>Takes a function <var>f</var> and additional arguments <var>args</var>. Returns a function which calls <var>f</var> with the same <code>this</code> value and the stored arguments (<var>args</var>). The returned function ignores all of their own arguments.</dd>
+</dl>
+</div>
+<div id="math-functions" class="subsection">
+<h3>Math functions</h3>
+<p>For small functions operating on numbers, see <a href="#number-functions">number functions</a>.</p>
+</div>
+<div id="number-functions" class="subsection">
+<h3>Number functions</h3>
+<p>All functions directly involved with numbers. Does not contain complicated <a href="#math-functions">mathematical functions</a>.</p>
+<dl>
+<dt><code>add(<var>a</var>, <var>b</var>)</code></dt>
+<dd>Adds <var>a</var> and <var>b</var> and returns the result.</dd>
+<dt><code>divide(<var>a</var>, <var>b</var>)</code></dt>
+<dd>Divides <var>a</var> by <var>b</var> and returns the result.</dd>
+<dt><code>gt(<var>left</var>, <var>right</var>)</code></dt>
+<dd><p>Returns <code>true</code>, if <var>left</var> is greater than <var>right</var>, and <code>false</code>, if not.</p></dd>
+<dt><code>gte(<var>left</var>, <var>right</var>)</code></dt>
+<dd><p>Returns <code>true</codE>, if <var>left</var> is greater than or equals <var>right</var>, and <code>false</code>, if not.</p></dd>
+<dt><code>ifSgn(<var>x</var>, <var>negF</var>, <var>zeroF</var>, <var>posF</var> [, <var>context</var>])</code></dt>
+<dd>Dependant on the signum of <var>x</var>, call a function –
+<ul>
+<li><var>negF</var>, if the number is negative.</li>
+<li><var>zeroF</var>, if the number is zero.</li>
+<li><var>posF</var>, if the number is positive.</li>
+</ul>
+If <var>context</var> is given, it is used as the function’s <code>this</code> value.</dd>
+<dt><code>lt(<var>left</var>, <var>right</var>)</code></dt>
+<dd><p>Returns <code>true</code>, if <var>left</var> is lesser than <var>right</var>, and <code>false</code>, if not.</p></dd>
+<dt><code>lte(<var>left</var>, <var>right</var>)</code></dt>
+<dd><p>Returns <code>true</code>, if <var>left</var> is lesser than or equals <var>right</var>, and <code>false</code>, if not.</p></dd>
+<dt><code>multiply(<var>a</var>, <var>b</var>)</code></dt>
+<dd>Multiplies <var>a</var> and <var>b</var> and returns the result.</dd>
+<dt><code>negate(<var>x</var>)</code></dt>
+<dd>Returns <code>-<var>x</var></code>.</dd>
+<dt><code>opIfSgn(<var>x</var>, <var>negV</var>, <var>zeroV</var>, <var>posV</var>)</code></dt>
+<dd>Returns a value according to the signum of a number <var>x</var>.
+<ul>
+<li><var>negV</var>, if the number is negative.</li>
+<li><var>zeroV</var>, if it is zero.</li>
+<li><var>posV</var>, if it is positive.</li>
+</ul>
+<dt><code>product(<var>n*</var>)</code></dt>
+<dd>Multiplies all arguments and returns the result. If no arguments were provided, <code>1</code> is returned.</dd>
+<dt><code>reciprocal(<var>x</var>)</code></dt>
+<dd>Returns <code>1/<var>x</var></code>.</dd>
+<dt><code>subtract(<var>a</var>, <var>b</var>)</code><dt>
+<dd>Subtracts <var>b</var> from <var>a</var> and returns the result.</dd>
+<dt><code>sum(<var>n*</var>)</code></dt>
+<dd>Returns the sum of all arguments. If no arguments were provided, <code>0</code> is returned.</dd>
+</dl>
+</div>
+<div id="object-functions" class="subsection">
+<h3>Object functions</h3>
+<dl>
+<dt>inject(<var>target</var>, <var>sources*</var>)</dt>
+<dd>Injects the propierties of other objects into an objects. Properties are set in order, existing properties will be overwritten. Returns the target object.</dd>
+<dt>merge(<var>objs*</var>)</dt>
+<dd>Creates a merged version of all objects. The properties of arguments with higher indices <em>overwrite</em> properties from arguments with lower indices. If no argument is provided at all, an “empty” objects is created, like one is created via <code>{}</code> or <code>new Object()</code>.</dd>
+</dl>
+</div>
+<div id="string-functions" class="subsection">
+<h3>String functions</h3>
+<p>None yet.</p>
+</div>
+<div id="misc-functions" class="subsection">
+<h3>Miscellaneous functions</h3>
+<dl>
+<dt><code>id(value)</code></dt>
+<dd>Identity function. Returns the value given.</dd>
+<dt><code>noOp()</code></dt>
+<dd>Does nothing, returns nothing.</dd>
+</dl>
+</div>
+<div id="functions-by-pureness">
+<h3>Functions by pureness</h3>
+<h4>Pure</h4>
+<ul>
+<li><code>add</code></li>
+<li><code>bind</code></li>
+<li><code>divide</code></li>
+<li><code>first</code></li>
+<li><code>gt</code></li>
+<li><code>gte</code></li>
+<li><code>hold</code></li>
+<li><code>id</code></li>
+<li><code>indexOf</code></li>
+<li><code>last</code></li>
+<li><code>lastIndexOf</code></li>
+<li><code>lt</code></li>
+<li><code>lte</code></li>
+<li><code>merge</code></li>
+<li><code>multiply</code></li>
+<li><code>negate</code></li>
+<li><code>noOp</code></li>
+<li><code>not</code></li>
+<li><code>opIfElse</code></li>
+<li><code>opIfSgn</code></li>
+<li><code>product</code></li>
+<li><code>reciprocal</code></li>
+<li><code>subtract</code></li>
+<li><code>sum</code></li>
+</ul>
+<h4>Likely pure</h4>
+<ul>
+<li><code>every</code></li>
+<li><code>filter</code></li>
+<li><code>ifElse</code></li>
+<li><code>ifSgn</code></li>
+<li><code>map</code></li>
+<li><code>reduce</code></li>
+<li><code>reduceRight</code></li>
+<li><code>some</code></li>
+</ul>
+<h4>Unlikely pure</h4>
+<ul>
+<li><code>forEach</code></li>
+</ul>
+<h4>Impure</h4>
+<ul>
+<li><code>inject</code></li>
+</ul>
+</div>
+</div>
+</body>
+</html>
