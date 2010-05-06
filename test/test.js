@@ -32,6 +32,7 @@ var TestFramework=(function(){
 		/**
 		* Asserts a value is truthy.
 		* @param value
+		* @param string msg
 		*/
 		this.assertTruthy=function(value, msg){
 			if(value){
@@ -45,7 +46,8 @@ var TestFramework=(function(){
 
 		/**
 		* Asserts a value is falsy.
-		* @param value
+		* @param mixed value
+		* @param string msg (optional)
 		*/
 		this.assertFalsy=function(value, msg){
 			if(!value){
@@ -58,9 +60,41 @@ var TestFramework=(function(){
 					message:msg||''});}};
 
 		/**
+		* Asserts the euqalness of two arrays.
+		* @param array expected
+		* @param array real
+		* @param string msg (optional)
+		*/
+		this.assertEqualArrays=function(expected, real, msg){
+			try{
+				if (expected.length!=real.length){
+					out({
+						success:false,
+						expected:'Array with length '+expected.length+'.',
+						instead:'Array with length '+real.length+'.',
+						message:msg||''});}
+				else{
+					var success=true;
+					for(var i=0,l=expected.length;i<l;i++){
+						if (expected[i]!=real[i]){
+							out({
+								success:false,
+								expected:'Item '+i+': '+expected[i],
+								instead:'Item '+i+': '+real[i]});}}
+					if (!success){
+						out({success:false, message:msg||''});}
+					else{
+						out({success:true});}}}
+			catch(e){
+				out({
+					success:false,
+					message:e+''});}}
+
+		/**
 		* Asserts the equality (neither strictness nor identity) of two values.
 		* @param expected
 		* @param real
+		* @param string msg (optional)
 		*/
 		this.assertEqual=function(expected, real, msg){
 			if(expected==real){
