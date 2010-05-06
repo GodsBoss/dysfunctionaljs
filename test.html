@@ -250,7 +250,49 @@ function runTests(lib){
 					fw.assertEqual(1, r4[0]);
 					fw.assertEqual(2, r4[1]);},
 				'description':'Array functions: head, tail',
-				'functions':['head', 'tail']}
+				'functions':['head', 'tail']},
+			{
+				'test':function(fw){
+					var testCs=[true,7,'hello',Math];
+					for(var i=0,l=testCs.length;i<l;i++){
+						var value=testCs[i];
+						var f=lib.constant(value);
+						for(var j=0;j<10;j++){
+							fw.assertTruthy(f()===value);}}},
+				'description':'Function: constant',
+				'functions':['constant']},
+			{
+				'test':function(fw){
+					function add(s1, s2){return s1+s2;};
+					function doubleString(s){return s+s;};
+					function addX(s){return s+'x';};
+					fw.assertEqual('46', lib.compose(add)('4', '6'));
+					fw.assertEqual('nmnmxnmnmx', lib.compose(add, doubleString, addX, doubleString)('n','m'));},
+				'description':'Function: compose',
+				'functions':['compose']},
+			{
+				'test':function(fw){
+					function reverse(a,b,c,d,e){return [e,d,c,b,a];}
+					function sum(){
+						var result=0;
+						for(var i=0,l=arguments.length;i<l;i++){
+							result+=arguments[i];}
+						return result;}
+					var cr=lib.curry(reverse);
+					fw.assertEqualArrays(cr(1,2,3,4,5),[5,4,3,2,1],'Called with all arguments.');
+					fw.assertEqualArrays(cr(1,2,3,4,5),cr(1,2)(3,4,5));
+					fw.assertEqualArrays(cr(1,2,3,4,5),cr(1)(2)(3)(4)(5));
+					fw.assertEqualArrays(cr(1,2,3,4,5),cr()(1)(2,3)()(4,5));
+					var add=lib.curry(sum, 2);
+					var add5=add(5);
+					var add_=add();
+					fw.assertEqual(7, add5(2));
+					fw.assertEqual(10, add_(6,4));
+					fw.assertEqual(12, add(10,2));
+					fw.assertEqual(20, lib.curry(sum, 5)(3)(4,5)()(6)()(2));},
+				'description':'Function: curry',
+				'functions':['curry']}
+					
 		];}
 
 	var tests=getTests();

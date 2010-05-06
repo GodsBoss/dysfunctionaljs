@@ -56,6 +56,28 @@ var dysfunctional=(function(){
 			return f.apply(this, args);};}
 
 	/**
+	* Composes functions to form a new function.
+	*
+	* f is the innermost function and takes arbitrary arguments.
+	* All other functions take exactly one argument. They are
+	* applied in order, so the last function in the argument list
+	* is the outermost one. The return value of that function is
+	* returned.
+	*
+	* @param function f
+	* @param function funcs*
+	* @return function
+	*/
+	function compose(f /* wrapping functions */){
+		var args=arguments;
+		function result(){
+			var ret=f.apply(null, arguments);
+			for(var i=1,l=args.length;i<l;i++){
+				ret=args[i](ret);}
+			return ret;}
+		return result;}
+
+	/**
 	* Merges several objects into one.
 	* When a property name exists on more than one object,
 	* the last value will be used.
@@ -82,6 +104,23 @@ var dysfunctional=(function(){
 				if (obj.hasOwnProperty(prop)){
 					target[prop]=obj[prop];}}}
 		return target;}
+
+	/**
+	* Creates a curried version of a function.
+	*
+	* @param function f
+	* @param number n (optional)
+	*/
+	function curry(f, n){
+		if (typeof n=='undefined'){
+			n=f.length;}
+		return function(){
+			if (arguments.length>=n){
+				return f.apply(null, arguments);}
+			else{
+				var args=arguments;
+				return curry(function(){
+					return f.apply(null, toArray(args).concat(toArray(arguments)));}, n-arguments.length);};};}
 
 	/**
 	* Does nothing, returns nothing.
@@ -141,6 +180,17 @@ var dysfunctional=(function(){
 	*/
 	function not(b){
 		return !b;}
+
+	/**
+	* Creates a function which ignores all arguments
+	* and returns always the same value.
+	*
+	* @param mixed value
+	* @return function
+	*/
+	function constant(value){
+		return function(){
+			return value;};}
 
 	/**
 	* Checks wether left is greater than right.
@@ -519,6 +569,9 @@ var dysfunctional=(function(){
 	// Public API
 	lib.add=add;
 	lib.bind=bind;
+	lib.compose=compose;
+	lib.constant=constant;
+	lib.curry=curry;
 	lib.divide=divide;
 	lib.every=every;
 	lib.filter=filter;

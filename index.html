@@ -102,6 +102,12 @@
 <dl>
 <dt><code>bind(<var>f</var>, <var>o</var>)</code></dt>
 <dd>Takes a function <var>f</var> and an object <var>o</var> and returns a new function, which takes all arguments, calls <var>f</var> with them as arguments and <var>o</var> as the <var>this</var> value and returns the result.</dd>
+<dt><code>compose(<var>f</var> [, <var>functions*</var>]</code></dt>
+<dd>Composes a new function by wrapping <var>f</var> in all additional arguments (which must be functions as well). The new function takes the same arguments as <var>f</var>, and returns a value resulting from a call to <var>f</var> with these arguments and then chaining calls to all other functions, in order.</dd>
+<dt><code>constant(<var>c</var>)</code></dt>
+<dd>Creates a function which always returns <var>c</var>.</dd>
+<dt><code>curry(<var>f</var> [, <var>n</var>]</code></dt>
+<dd>Curries a function.</dd>
 <dt><code>hold(<var>f</var> [, <var>args*</var>])</code></dt>
 <dd>Takes a function <var>f</var> and additional arguments <var>args</var>. Returns a function which calls <var>f</var> with the same <code>this</code> value and the stored arguments (<var>args</var>). The returned function ignores all of their own arguments.</dd>
 </dl>
