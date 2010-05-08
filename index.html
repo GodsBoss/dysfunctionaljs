@@ -108,6 +108,16 @@
 <dd>Returns <code>true</code>, if either <var>left</var> or <var>right</var> is truthy. If both are truthy or if both are falsy, returns <code>false</code>.</dd>
 </dl>
 </div>
+<div id="collection-functions" class="subsection">
+<h3>Collection functions</h3>
+<p>Some functions apply to both arrays and objects and maybe to other things.</p>
+<dl>
+<dt><code>item(<var>obj</var>, <var>index</var>)</code></dt>
+<dd>Returns <code><var>obj</var>[<var>index</var>]</code>. <var>obj</var> can be an object or an array, while <var>index</var> is a property or an index.</dd>
+<dt><code>items(<var>obj</var> [, <var>indices*</var>])</code></dt>
+<dd>Returns properties of an object or elements of an array as array.</dd>
+</dl>
+</div>
 <div id="function-functions" class="subsection">
 <h3>Function functions</h3>
 <p>Create functions out of anything!</p>
@@ -216,6 +226,8 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <li><code>hold</code></li>
 <li><code>id</code></li>
 <li><code>indexOf</code></li>
+<li><code>item</code></li>
+<li><code>items</code></li>
 <li><code>last</code></li>
 <li><code>lastIndexOf</code></li>
 <li><code>lt</code></li>

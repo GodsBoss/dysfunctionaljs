@@ -470,6 +470,28 @@ var dysfunctional=(function(){
 			value=f.apply(null, value);
 			return extract(value);};}
 
+	/**
+	* Returns a property of an object or an element of an array.
+	*
+	* @param array|object obj
+	* @param number|string name
+	* @return mixed
+	*/
+	function item(obj, name){
+		return obj[name];}
+
+	/**
+	* Returns properties of an object or elements of an array.
+	*
+	* @param array|object obj
+	* @return array
+	*/
+	function items(obj /*, names */){
+		var result=[];
+		for(var i=1,l=arguments.length;i<l;i++){
+			result.push(obj[arguments[i]]);}
+		return result;}
+
 	// Implementation of functional variants of some methods found in
 	// ECMA-262 5th Ed., but not ECMA-262 3rd Ed.
 
@@ -665,6 +687,8 @@ var dysfunctional=(function(){
 	lib.ifSgn=ifSgn;
 	lib.indexOf=indexOf;
 	lib.inject=inject;
+	lib.item=item;
+	lib.items=items;
 	lib.last=last;
 	lib.lastIndexOf=lastIndexOf;
 	lib.lt=lt;
