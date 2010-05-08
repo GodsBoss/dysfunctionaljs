@@ -17,6 +17,10 @@
 *   failures    - An array containing all results of the assertions which failed.
 */
 var TestFramework=(function(){
+
+	// Shortcut.
+	var objToStr=Object.prototype.toString;
+
 	/**
 	* Test runner constructor.
 	* Provides assertion and helper functions.
@@ -58,6 +62,32 @@ var TestFramework=(function(){
 					expected:'Falsy value.',
 					instead:value,
 					message:msg||''});}};
+
+		/**
+		* Asserts wether an exception is thrown.
+		* @param function fn Function which should throw an exception.
+		* @param mixed exception Expected exception.
+		* @param string msg (optional)
+		*/
+		this.assertException=function(fn, exception, msg){
+			var excStr=objToStr.call(exception);
+			try{
+				fn();
+				out({
+					success:false,
+					expected:'Exception '+excStr+'.',
+					instead:'No exception.',
+					message:msg||''});}
+			catch(e){
+				var realExcStr=objToStr.call(e);
+				if (realExcStr==excStr){
+					out({success:true});}
+				else{
+					out({
+						success:false,
+						expected:'Exception '+excStr+'.',
+						instead:'Exception '+realExcStr+'.',
+						message:msg||''});}}};
 
 		/**
 		* Asserts the euqalness of two arrays.

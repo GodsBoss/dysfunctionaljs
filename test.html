@@ -165,7 +165,9 @@ function runTests(lib){
 					fw.assertEqual(13, lib.reduce(testArray, testFunc));
 					fw.assertEqual(14, lib.reduce(testArray, testFunc, 1));
 					fw.assertEqual(-13, lib.reduceRight(testArray, testFunc));
-					fw.assertEqual(-12, lib.reduceRight(testArray, testFunc, 1));},
+					fw.assertEqual(-12, lib.reduceRight(testArray, testFunc, 1));
+					fw.assertException(function(){lib.reduce([], testFunc);}, new TypeError(''));
+					fw.assertException(function(){lib.reduceRight([], testFunc);}, new TypeError(''));},
 				'description':'Array functions: reduce, reduceRight',
 				'functions':['reduce','reduceRight']},
 			{
