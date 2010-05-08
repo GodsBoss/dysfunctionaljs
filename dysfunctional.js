@@ -11,6 +11,67 @@ var dysfunctional=(function(){
 	var lib={};
 
 	/**
+	* Functification of &&.
+	* Returns true, if both arguments are truthy, else false.
+	* @param mixed left
+	* @param mixed right
+	* @return boolean
+	*/
+	function and(left, right){
+		return !!(left && right);}
+
+	/**
+	* Functification of ||.
+	* Returns true, if at least one argument is truthy, else false.
+	* @param mixed left
+	* @param mixed right
+	* @return boolean
+	*/
+	function or(left, right){
+		return !!(left ||right);}
+
+	/**
+	* XOR.
+	* Returns true, if exactly one arguments is truthy,
+	* and the other is falsy. Else, returns false.
+	* @param mixed left
+	* @param mixed right
+	* @return boolean
+	*/
+	function xor(left, right){
+		return (!left)!=(!right);}
+
+	/**
+	* NAND.
+	* Returns true, if at least one argument is falsy, else false.
+	* @param mixed left
+	* @param mixed right
+	* @return boolean
+	*/
+	function nand(left, right){
+		return !(left && right);}
+
+	/**
+	* NOR
+	* Returns true, if both arguments are false, else false.
+	* @param mixed left
+	* @param mixed right
+	* @return boolean
+	*/
+	function nor(left, right){
+		return !(left||right);}
+
+	/**
+	* Returns true, if both arguments have either a truthy or a falsy value.
+	* If one is falsy and the other one is truthy, return false.
+	* @param mixed left
+	* @param mixed right
+	* @return boolean
+	*/
+	function xnor(left, right){
+		return (!left)==(!right);}
+
+	/**
 	* Converts an object, usually an arguments object, to a real array.
 	*
 	* @param object obj
@@ -584,6 +645,7 @@ var dysfunctional=(function(){
 
 	// Public API
 	lib.add=add;
+	lib.and=and;
 	lib.bind=bind;
 	lib.compose=compose;
 	lib.constant=constant;
@@ -611,10 +673,13 @@ var dysfunctional=(function(){
 	lib.merge=merge;
 	lib.multiply=multiply;
 	lib.negate=negate;
+	lib.nand=nand;
 	lib.noOp=noOp;
+	lib.nor=nor;
 	lib.not=not;
 	lib.opIfElse=opIfElse;
 	lib.opIfSgn=opIfSgn;
+	lib.or=or;
 	lib.product=product;
 	lib.reciprocal=reciprocal;
 	lib.reduce=reduce;
@@ -623,5 +688,7 @@ var dysfunctional=(function(){
 	lib.subtract=subtract;
 	lib.sum=sum;
 	lib.tail=tail;
+	lib.xnor=xnor;
+	lib.xor=xor;
 
 	return lib;})();

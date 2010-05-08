@@ -88,12 +88,24 @@
 <div id="boolean-functions" class="subsection">
 <h3>Boolean functions</h3>
 <dl>
+<dt><code>and(<var>left</var>, <var>right</var>)</code></dt>
+<dd>Returns <code>true</code>, if both <var>left</var> and <var>right</var> are truthy, else <code>false</code>.</dd>
 <dt><code>ifElse(<var>b</var>, <var>fIf</var>, <var>fElse</var> [, <var>context</var>])</code></dt>
 <dd>If <var>b</var> is truthy, <var>fIf</var> is called, else <var>fElse</var>. If <var>context</var> is given, it's the <code>this</code> value of the function. The return value is the return value of the called function.</dd>
+<dt><code>nand(<var>left</var>, <var>right</var>)</code></dd>
+<dd>Returns <code>true</code>, if at least one of the arguments is falsy, else <code>false</code>.</dd>
+<dt><code>nor(<var>left</var>, <var>right</var>)</code></dd>
+<dd>Returns <code>true</code>, if both <var>left</var> and <var>right</var> are falsy, else <code>false</code>.</dd>
 <dt><code>not(<var>b</var>)</code></dt>
 <dd>Returns <code>!<var>b</var></code>.</dd>
 <dt><code>opIfElse(<var>b</var>, <var>ifValue</var>, <var>elseValue</var>)</code></dt>
 <dd>Returns <var>ifValue</var>, if <var>b</var> is truthy, else <var>elseValue</var>.</dd>
+<dt><code>or(<var>left</var>, <var>right</var>)</code></dt>
+<dd>Returns <code>true</code>, if at least one of the arguments is truthy, else <code>false</code>.</dd>
+<dt><code>xnor(<var>left</var>, <var>right</var>)</code></dt>
+<dd>Returns <code>true</code>, if both <var>left</var> and <var>right</var> are either truthy or falsy. If one of them is truthy and the other one is falsy, returns <code>false</code>.</dd>
+<dt><code>xor(<var>left</var>, <var>right</var>)</code></dt>
+<dd>Returns <code>true</code>, if either <var>left</var> or <var>right</var> is truthy. If both are truthy or if both are falsy, returns <code>false</code>.</dd>
 </dl>
 </div>
 <div id="function-functions" class="subsection">
@@ -190,6 +202,7 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <h4>Pure</h4>
 <ul>
 <li><code>add</code></li>
+<li><code>and</code></li>
 <li><code>bind</code></li>
 <li><code>compose</code></li>
 <li><code>constant</code></li>
@@ -209,16 +222,21 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <li><code>lte</code></li>
 <li><code>merge</code></li>
 <li><code>multiply</code></li>
+<li><code>nand</code></li>
 <li><code>negate</code></li>
 <li><code>noOp</code></li>
+<li><code>nor</code></li>
 <li><code>not</code></li>
 <li><code>opIfElse</code></li>
 <li><code>opIfSgn</code></li>
+<li><code>or</code></li>
 <li><code>product</code></li>
 <li><code>reciprocal</code></li>
 <li><code>subtract</code></li>
 <li><code>sum</code></li>
 <li><code>tail</code></li>
+<li><code>xnor</code></li>
+<li><code>xor</code></li>
 </ul>
 <h4>Likely pure</h4>
 <ul>

@@ -307,8 +307,40 @@ function runTests(lib){
 					fw.assertEqualArrays([2],nat());
 					fw.assertEqualArrays([3],nat());},
 				'description':'Function: generator',
-				'functions':['generator']}
-					
+				'functions':['generator']},
+			{
+				'test':function(fw){
+					fw.assertTruthy(lib.and(1,1));
+					fw.assertFalsy(lib.and(1,0));
+					fw.assertFalsy(lib.and(0,1));
+					fw.assertFalsy(lib.and(0,0));
+
+					fw.assertTruthy(lib.or(1,1));
+					fw.assertTruthy(lib.or(1,0));
+					fw.assertTruthy(lib.or(0,1));
+					fw.assertFalsy(lib.or(0,0));
+
+					fw.assertFalsy(lib.xor(1,1));
+					fw.assertTruthy(lib.xor(1,0));
+					fw.assertTruthy(lib.xor(0,1));
+					fw.assertFalsy(lib.xor(0,0));
+
+					fw.assertFalsy(lib.nand(1,1));
+					fw.assertTruthy(lib.nand(1,0));
+					fw.assertTruthy(lib.nand(0,1));
+					fw.assertTruthy(lib.nand(0,0));
+
+					fw.assertFalsy(lib.nor(1,1));
+					fw.assertFalsy(lib.nor(1,0));
+					fw.assertFalsy(lib.nor(0,1));
+					fw.assertTruthy(lib.nor(0,0));
+
+					fw.assertTruthy(lib.xnor(1,1));
+					fw.assertFalsy(lib.xnor(1,0));
+					fw.assertFalsy(lib.xnor(0,1));
+					fw.assertTruthy(lib.xnor(0,0));},
+				'description':'Boolean functions.',
+				'functions':['and','or','xor','nand','nor','xnor']}
 		];}
 
 	var tests=getTests();
