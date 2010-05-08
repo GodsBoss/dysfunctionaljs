@@ -291,7 +291,21 @@ function runTests(lib){
 					fw.assertEqual(12, add(10,2));
 					fw.assertEqual(20, lib.curry(sum, 5)(3)(4,5)()(6)()(2));},
 				'description':'Function: curry',
-				'functions':['curry']}
+				'functions':['curry']},
+			{
+				'test':function(fw){
+					function fibonacciStep(n, m){
+						return [m, n+m];}
+					var fib=lib.generator(fibonacciStep, [0,1], lib.first);
+					fw.assertEqualArrays([1,1,2,3,5,8,13],[fib(),fib(),fib(),fib(),fib(),fib(),fib()]);
+					function inc(n){
+						return [n+1];}
+					var nat=lib.generator(inc, [0]);
+					fw.assertEqual(1,nat()[0]);
+					fw.assertEqual(2,nat()[0]);
+					fw.assertEqual(3,nat()[0]);},
+				'description':'Function: generator',
+				'functions':['generator']}
 					
 		];}
 

@@ -393,6 +393,22 @@ var dysfunctional=(function(){
 	function tail(a, n){
 		return typeof n==='number'?Array.prototype.slice.call(a, -n):[a[a.length-1]];}
 
+	/**
+	* Creates a generator from a start value,
+	* a function and an extractor.
+	*
+	* @param function f
+	* @param array start
+	* @param function extract (optional)
+	* @return function
+	*/
+	function generator(f, start, extract){
+		var value=start;
+		extract=extract||id;
+		return function(){
+			value=f.apply(null, value);
+			return extract(value);};}
+
 	// Implementation of functional variants of some methods found in
 	// ECMA-262 5th Ed., but not ECMA-262 3rd Ed.
 
@@ -577,6 +593,7 @@ var dysfunctional=(function(){
 	lib.filter=filter;
 	lib.first=first;
 	lib.forEach=forEach;
+	lib.generator=generator;
 	lib.gt=gt;
 	lib.gte=gte;
 	lib.head=head;
