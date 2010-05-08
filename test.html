@@ -303,9 +303,9 @@ function runTests(lib){
 					function inc(n){
 						return [n+1];}
 					var nat=lib.generator(inc, [0]);
-					fw.assertEqual(1,nat()[0]);
-					fw.assertEqual(2,nat()[0]);
-					fw.assertEqual(3,nat()[0]);},
+					fw.assertEqualArrays([1],nat());
+					fw.assertEqualArrays([2],nat());
+					fw.assertEqualArrays([3],nat());},
 				'description':'Function: generator',
 				'functions':['generator']}
 					
