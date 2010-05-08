@@ -53,58 +53,148 @@
 <li>If a function takes an arbitrary number of parameters, this is marked with an asterisk, e.g. <code>function foobar(<var>param1</var>, <var>params*</var>)</code>.</li>
 </ul>
 </div>
+<div id="index" class="subsection">
+<h3>Index</h3>
+<dl class="index">
+<dt><a href="#array-functions">Array functions</a></dt>
+<dd>
+<ul>
+<li><a href="#function-every"><code>every</code></a></li>
+<li><a href="#function-filter"><code>filter</code></a></li>
+<li><a href="#function-first"><code>first</code></a></li>
+<li><a href="#function-forEach"><code>forEach</code></a></li>
+<li><a href="#function-head"><code>head</code></a></li>
+<li><a href="#function-indexOf"><code>indexOf</code></a></li>
+<li><a href="#function-last"><code>last</code></a></li>
+<li><a href="#function-lastIndexOf"><code>lastIndexOf</code></a></li>
+<li><a href="#function-map"><code>map</code></a></li>
+<li><a href="#function-reduce"><code>reduce</code></a></li>
+<li><a href="#function-reduceRight"><code>reduceRight</code></a></li>
+<li><a href="#function-some"><code>some</code></a></li>
+<li><a href="#function-tail"><code>tail</code></a></li>
+</ul>
+</dd>
+<dt><a href="#boolean-functions">Boolean functions</a></dt>
+<dd>
+<ul>
+<li><a href="#function-and"><code>and</code></a></li>
+<li><a href="#function-ifElse"><code>ifElse</code></a></li>
+<li><a href="#function-nand"><code>nand</code></a></li>
+<li><a href="#function-nor"><code>nor</code></a></li>
+<li><a href="#function-not"><code>not</code></a></li>
+<li><a href="#function-opIfElse"><code>opIfElse</code></a></li>
+<li><a href="#function-or"><code>or</code></a></li>
+<li><a href="#function-xnor"><code>xnor</code></a></li>
+<li><a href="#function-xor"><code>xor</code></a></li>
+</ul>
+</dd>
+<dt><a href="#collection-functions">Collection functions</a></dt>
+<dd>
+<ul>
+<li><a href="#function-item"><code>item</code></a></li>
+<li><a href="#function-items"><code>items</code></a></li>
+</ul>
+</dd>
+<dt><a href="#function-functions">Function functions</a></dt>
+<dd>
+<ul>
+<li><a href="#function-bind"><code>bind</code></a></li>
+<li><a href="#function-compose"><code>compose</code></a></li>
+<li><a href="#function-constant"><code>constant</code></a></li>
+<li><a href="#function-curry"><code>curry</code></a></li>
+<li><a href="#function-generator"><code>generator</code></a></li>
+<li><a href="#function-hold"><code>hold</code></a></li>
+</ul>
+</dd>
+<dt><a href="#math-functions">Math functions</a></dt>
+<dt><a href="#number-functions">Number functions</a></dt>
+<dd>
+<ul>
+<li><a href="#function-add"><code>add</code></a></li>
+<li><a href="#function-divide"><code>divide</code></a></li>
+<li><a href="#function-gt"><code>gt</code></a></li>
+<li><a href="#function-gte"><code>gte</code></a></li>
+<li><a href="#function-ifSgn"><code>ifSgn</code></a></li>
+<li><a href="#function-lt"><code>lt</code></a></li>
+<li><a href="#function-lte"><code>lte</code></a></li>
+<li><a href="#function-multiply"><code>multiply</code></a></li>
+<li><a href="#function-negate"><code>negate</code></a></li>
+<li><a href="#function-opIfSgn"><code>opIfSgn</code></a></li>
+<li><a href="#function-product"><code>product</code></a></li>
+<li><a href="#function-reciprocal"><code>reciprocal</code></a></li>
+<li><a href="#function-subtract"><code>subtract</code></a></li>
+<li><a href="#function-sum"><code>sum</code></a></li>
+</ul>
+</dd>
+<dt><a href="#object-functions">Object functions</a></dt>
+<dd>
+<ul>
+<li><a href="#function-inject"><code>inject</code></a></li>
+<li><a href="#function-merge"><code>merge</code></a></li>
+</ul>
+</dd>
+<dt><a href="#string-functions">String functions</a></dt>
+<dt><a href="#misc-functions">Miscellaneous functions</a></dt>
+<dd>
+<ul>
+<li><a href="#function-id"><code>id</code></a></li>
+<li><a href="#function-noOp"><code>noOp</code></a></li>
+</ul>
+</dd>
+</dl>
+</div>
 <div id="array-functions" class="subsection">
 <h3>Array functions</h3>
 <p>All functions which manipulate arrays or operate on them.</p>
 <dl>
-<dt><code>every(<var>arr</var>, <var>func</var>, [, <var>context</var>])</code></dt>
+<dt id="function-every"><code>every(<var>arr</var>, <var>func</var>, [, <var>context</var>])</code></dt>
 <dd>Checks if for every element of <var>arr</var> a condition is <code>true</code>. Roughly equivalent to <code><var>arr</var>.every(<var>func</var>, <var>context</var>)</code>. Always <code>true</code> for empty arrays.</dd>
-<dt><code>filter(<var>arr</var>, <var>func</var> [, <var>context</var>])</code></dt>
+<dt id="function-filter"><code>filter(<var>arr</var>, <var>func</var> [, <var>context</var>])</code></dt>
 <dd>Collects only elements of <var>arr</var>, for which the return value of a call to <var>func</var> with <var>context</var> as <code>this</code> value coerces to <code>true</code>. Roughly equivalent to <code><var>arr</var>.filter(<var>func</var>, <var>context</var>)</code>.</dd>
-<dt><code>first(<var>arr</var>)</code></dt>
+<dt id="function-first"><code>first(<var>arr</var>)</code></dt>
 <dd>Returns the first element of <var>arr</var>. Throws a <code>TypeError</code> if the array is empty.</dd>
-<dt><code>forEach(<var>arr</var>, <var>func</var> [, <var>context</var>])</code></dt>
+<dt id="function-forEach"><code>forEach(<var>arr</var>, <var>func</var> [, <var>context</var>])</code></dt>
 <dd>Calls <var>func</var> for all elements of <var>arr</var> with <var>context</var> as <code>this</code>. Roughly equivalent to <code><var>arr</var>.forEach(<var>func</var>, <var>context</var>)</code>.</dd>
-<dt><code>head(<var>arr</var> [, <var>n</var>])</code></dt>
+<dt id="function-head"><code>head(<var>arr</var> [, <var>n</var>])</code></dt>
 <dd>Returns the first <var>n</var> elements of <var>arr</var>. The default value for <var>n</var> is 1.</dd>
-<dt><code>indexOf(<var>arr</var>, <var>value</var> [, <var>startIndex</var>])</code></dt>
+<dt id="function-indexOf"><code>indexOf(<var>arr</var>, <var>value</var> [, <var>startIndex</var>])</code></dt>
 <dd>Returns the index of the first appearance of <var>value</var> within <var>arr</var>, or <code>-1</code>, if that value does not exist within <var>arr</var>. The search will start at <var>startIndex</var> or at <code>0</code>, if <var>startIndex</var> is not given.</dd>
-<dt><code>last(<var>arr</var>)</code></dt>
+<dt id="function-last"><code>last(<var>arr</var>)</code></dt>
 <dd>Returns the last element of <var>arr</var>. Throws a TypeError, if the array is empty.</dd>
-<dt><code>lastIndexOf(<var>arr</var>, <var>value</var> [, <var>startIndex</var>])</code><dt>
+<dt id="function-lastIndexOf"><code>lastIndexOf(<var>arr</var>, <var>value</var> [, <var>startIndex</var>])</code><dt>
 <dd>Returns the index of the last appearance of <var>value</var> within <var>arr</var>, or <code>-1</code>, if that value does not exist within <var>arr</var>. The search will start at <var>startIndex</var> or, if it is missing, at <code><var>arr</var>.length</code>.</dd>
-<dt><code>map(<var>arr</var>, <var>func</var> [, <var>context</var>)</code></dt>
+<dt id="function-map"><code>map(<var>arr</var>, <var>func</var> [, <var>context</var>)</code></dt>
 <dd>Creates a new array by applying <var>func</var> to all elements of <var>arr</var> with <var>context</var> as <code>this</code> value and collecting the results. Roughly equivalent to <code><var>arr</var>.map(<var>func</var>, <var>context</var>)</code>.</dd>
-<dt><code>reduce(<var>arr</var>, <var>func</var> [, <var>startValue</var>])</code></dt>
+<dt id="function-reduce"><code>reduce(<var>arr</var>, <var>func</var> [, <var>startValue</var>])</code></dt>
 <dd>Reduces the values of <var>arr</var> via successive calls to <var>func</var> to a result and returns it. The array is processed from start (index 0) to end (index <code><var>arr</var>.length-1</code>). Roughly equivalent to <code><var>arr</var>.reduce(<var>func</var>, <var>startValue</var>)</code>.</dd>
-<dt><code>reduceRight(<var>arr</var> [, <var>startValue</var>])</code></dt>
+<dt id="function-reduceRight"><code>reduceRight(<var>arr</var> [, <var>startValue</var>])</code></dt>
 <dd>Reduces the values of <var>arr</var> via successive calls to <var>func</var> to a result and returns it. The array is processed from end (index <code><var>arr</var>.length-1</code>) to start (index 0). Roughly equivalent to <code><var>arr</var>.reduceRight(<var>func</var>, <var>startValue</var>)</code>.</dd>
-<dt><code>some(<var>arr</var>, <var>func</var> [, <var>context</var>)</code></dt>
+<dt id="function-some"><code>some(<var>arr</var>, <var>func</var> [, <var>context</var>)</code></dt>
 <dd>Checks if at least one element of <var>array</var> satisfies a given condition. Roughly equivalent to <code><var>arr</var>.some(<var>func</var>, <var>context</var>)</code>. Always <code>false</code> for empty arrays.</dd>
-<dt><code>tail(<var>arr</var> [, <var>n</var>])</code></dt>
+<dt id="function-tail"><code>tail(<var>arr</var> [, <var>n</var>])</code></dt>
 <dd>Returns the last <var>n</var> elements of <var>arr</var>. The default value for <var>n</var> is 1.</dd>
 </dl>
 </div>
 <div id="boolean-functions" class="subsection">
 <h3>Boolean functions</h3>
 <dl>
-<dt><code>and(<var>left</var>, <var>right</var>)</code></dt>
+<dt id="function-and"><code>and(<var>left</var>, <var>right</var>)</code></dt>
 <dd>Returns <code>true</code>, if both <var>left</var> and <var>right</var> are truthy, else <code>false</code>.</dd>
-<dt><code>ifElse(<var>b</var>, <var>fIf</var>, <var>fElse</var> [, <var>context</var>])</code></dt>
+<dt id="function-ifElse"><code>ifElse(<var>b</var>, <var>fIf</var>, <var>fElse</var> [, <var>context</var>])</code></dt>
 <dd>If <var>b</var> is truthy, <var>fIf</var> is called, else <var>fElse</var>. If <var>context</var> is given, it's the <code>this</code> value of the function. The return value is the return value of the called function.</dd>
-<dt><code>nand(<var>left</var>, <var>right</var>)</code></dd>
+<dt id="function-nand"><code>nand(<var>left</var>, <var>right</var>)</code></dd>
 <dd>Returns <code>true</code>, if at least one of the arguments is falsy, else <code>false</code>.</dd>
-<dt><code>nor(<var>left</var>, <var>right</var>)</code></dd>
+<dt id="function-nor"><code>nor(<var>left</var>, <var>right</var>)</code></dd>
 <dd>Returns <code>true</code>, if both <var>left</var> and <var>right</var> are falsy, else <code>false</code>.</dd>
-<dt><code>not(<var>b</var>)</code></dt>
+<dt id="function-not"><code>not(<var>b</var>)</code></dt>
 <dd>Returns <code>!<var>b</var></code>.</dd>
-<dt><code>opIfElse(<var>b</var>, <var>ifValue</var>, <var>elseValue</var>)</code></dt>
+<dt id="function-opIfElse"><code>opIfElse(<var>b</var>, <var>ifValue</var>, <var>elseValue</var>)</code></dt>
 <dd>Returns <var>ifValue</var>, if <var>b</var> is truthy, else <var>elseValue</var>.</dd>
-<dt><code>or(<var>left</var>, <var>right</var>)</code></dt>
+<dt id="function-or"><code>or(<var>left</var>, <var>right</var>)</code></dt>
 <dd>Returns <code>true</code>, if at least one of the arguments is truthy, else <code>false</code>.</dd>
-<dt><code>xnor(<var>left</var>, <var>right</var>)</code></dt>
+<dt id="function-xnor"><code>xnor(<var>left</var>, <var>right</var>)</code></dt>
 <dd>Returns <code>true</code>, if both <var>left</var> and <var>right</var> are either truthy or falsy. If one of them is truthy and the other one is falsy, returns <code>false</code>.</dd>
-<dt><code>xor(<var>left</var>, <var>right</var>)</code></dt>
+<dt id="function-xor"><code>xor(<var>left</var>, <var>right</var>)</code></dt>
 <dd>Returns <code>true</code>, if either <var>left</var> or <var>right</var> is truthy. If both are truthy or if both are falsy, returns <code>false</code>.</dd>
 </dl>
 </div>
@@ -112,9 +202,9 @@
 <h3>Collection functions</h3>
 <p>Some functions apply to both arrays and objects and maybe to other things.</p>
 <dl>
-<dt><code>item(<var>obj</var>, <var>index</var>)</code></dt>
+<dt id="function-item"><code>item(<var>obj</var>, <var>index</var>)</code></dt>
 <dd>Returns <code><var>obj</var>[<var>index</var>]</code>. <var>obj</var> can be an object or an array, while <var>index</var> is a property or an index.</dd>
-<dt><code>items(<var>obj</var> [, <var>indices*</var>])</code></dt>
+<dt id="function-items"><code>items(<var>obj</var> [, <var>indices*</var>])</code></dt>
 <dd>Returns properties of an object or elements of an array as array.</dd>
 </dl>
 </div>
@@ -122,17 +212,17 @@
 <h3>Function functions</h3>
 <p>Create functions out of anything!</p>
 <dl>
-<dt><code>bind(<var>f</var>, <var>o</var>)</code></dt>
+<dt id="function-bind"><code>bind(<var>f</var>, <var>o</var>)</code></dt>
 <dd>Takes a function <var>f</var> and an object <var>o</var> and returns a new function, which takes all arguments, calls <var>f</var> with them as arguments and <var>o</var> as the <var>this</var> value and returns the result.</dd>
-<dt><code>compose(<var>f</var> [, <var>functions*</var>]</code></dt>
+<dt id="function-compose"><code>compose(<var>f</var> [, <var>functions*</var>]</code></dt>
 <dd>Composes a new function by wrapping <var>f</var> in all additional arguments (which must be functions as well). The new function takes the same arguments as <var>f</var>, and returns a value resulting from a call to <var>f</var> with these arguments and then chaining calls to all other functions, in order.</dd>
-<dt><code>constant(<var>c</var>)</code></dt>
+<dt id="function-constant"><code>constant(<var>c</var>)</code></dt>
 <dd>Creates a function which always returns <var>c</var>.</dd>
-<dt><code>curry(<var>f</var> [, <var>n</var>]</code></dt>
+<dt id="function-curry"><code>curry(<var>f</var> [, <var>n</var>]</code></dt>
 <dd>Curries a function.</dd>
-<dt><code>generator(<var>f</var>, <var>startValue</var> [, <var>extract</var>])</code></dt>
+<dt id="function-generator"><code>generator(<var>f</var>, <var>startValue</var> [, <var>extract</var>])</code></dt>
 <dd>Creates a generator. A generator is a function which is call sequently without arguments and returns a different value (sometimes called ”next“). If <var>extract</var> is not given, <var>id</var> is used instead. The values of the created generator are computed by applying <var>f</var> to the current value (which is <var>startValue</var> in the beginning) and extracting the real return value via <var>extract</var>. <var>f</var> is a function which can take any number of arguments, but <em>must</em> return an array. The <var>startValue</var> must be an array, too, and is not returned on the first execution.</dd>
-<dt><code>hold(<var>f</var> [, <var>args*</var>])</code></dt>
+<dt id="function-hold"><code>hold(<var>f</var> [, <var>args*</var>])</code></dt>
 <dd>Takes a function <var>f</var> and additional arguments <var>args</var>. Returns a function which calls <var>f</var> with the same <code>this</code> value and the stored arguments (<var>args</var>). The returned function ignores all of their own arguments.</dd>
 </dl>
 </div>
@@ -144,15 +234,15 @@
 <h3>Number functions</h3>
 <p>All functions directly involved with numbers. Does not contain complicated <a href="#math-functions">mathematical functions</a>.</p>
 <dl>
-<dt><code>add(<var>a</var>, <var>b</var>)</code></dt>
+<dt id="function-add"><code>add(<var>a</var>, <var>b</var>)</code></dt>
 <dd>Adds <var>a</var> and <var>b</var> and returns the result.</dd>
-<dt><code>divide(<var>a</var>, <var>b</var>)</code></dt>
+<dt id="function-divide"><code>divide(<var>a</var>, <var>b</var>)</code></dt>
 <dd>Divides <var>a</var> by <var>b</var> and returns the result.</dd>
-<dt><code>gt(<var>left</var>, <var>right</var>)</code></dt>
+<dt id="function-gt"><code>gt(<var>left</var>, <var>right</var>)</code></dt>
 <dd><p>Returns <code>true</code>, if <var>left</var> is greater than <var>right</var>, and <code>false</code>, if not.</p></dd>
-<dt><code>gte(<var>left</var>, <var>right</var>)</code></dt>
+<dt id="function-gte"><code>gte(<var>left</var>, <var>right</var>)</code></dt>
 <dd><p>Returns <code>true</codE>, if <var>left</var> is greater than or equals <var>right</var>, and <code>false</code>, if not.</p></dd>
-<dt><code>ifSgn(<var>x</var>, <var>negF</var>, <var>zeroF</var>, <var>posF</var> [, <var>context</var>])</code></dt>
+<dt id="function-ifSgn"><code>ifSgn(<var>x</var>, <var>negF</var>, <var>zeroF</var>, <var>posF</var> [, <var>context</var>])</code></dt>
 <dd>Dependant on the signum of <var>x</var>, call a function –
 <ul>
 <li><var>negF</var>, if the number is negative.</li>
@@ -160,28 +250,28 @@
 <li><var>posF</var>, if the number is positive.</li>
 </ul>
 If <var>context</var> is given, it is used as the function’s <code>this</code> value.</dd>
-<dt><code>lt(<var>left</var>, <var>right</var>)</code></dt>
+<dt id="function-lt"><code>lt(<var>left</var>, <var>right</var>)</code></dt>
 <dd><p>Returns <code>true</code>, if <var>left</var> is lesser than <var>right</var>, and <code>false</code>, if not.</p></dd>
-<dt><code>lte(<var>left</var>, <var>right</var>)</code></dt>
+<dt id="function-lte"><code>lte(<var>left</var>, <var>right</var>)</code></dt>
 <dd><p>Returns <code>true</code>, if <var>left</var> is lesser than or equals <var>right</var>, and <code>false</code>, if not.</p></dd>
-<dt><code>multiply(<var>a</var>, <var>b</var>)</code></dt>
+<dt id="function-multiply"><code>multiply(<var>a</var>, <var>b</var>)</code></dt>
 <dd>Multiplies <var>a</var> and <var>b</var> and returns the result.</dd>
-<dt><code>negate(<var>x</var>)</code></dt>
+<dt id="function-negate"><code>negate(<var>x</var>)</code></dt>
 <dd>Returns <code>-<var>x</var></code>.</dd>
-<dt><code>opIfSgn(<var>x</var>, <var>negV</var>, <var>zeroV</var>, <var>posV</var>)</code></dt>
+<dt id="function-opIfSgn"><code>opIfSgn(<var>x</var>, <var>negV</var>, <var>zeroV</var>, <var>posV</var>)</code></dt>
 <dd>Returns a value according to the signum of a number <var>x</var>.
 <ul>
 <li><var>negV</var>, if the number is negative.</li>
 <li><var>zeroV</var>, if it is zero.</li>
 <li><var>posV</var>, if it is positive.</li>
 </ul>
-<dt><code>product(<var>n*</var>)</code></dt>
+<dt id="function-product"><code>product(<var>n*</var>)</code></dt>
 <dd>Multiplies all arguments and returns the result. If no arguments were provided, <code>1</code> is returned.</dd>
-<dt><code>reciprocal(<var>x</var>)</code></dt>
+<dt id="function-reciprocal"><code>reciprocal(<var>x</var>)</code></dt>
 <dd>Returns <code>1/<var>x</var></code>.</dd>
-<dt><code>subtract(<var>a</var>, <var>b</var>)</code><dt>
+<dt id="function-subtract"><code>subtract(<var>a</var>, <var>b</var>)</code><dt>
 <dd>Subtracts <var>b</var> from <var>a</var> and returns the result.</dd>
-<dt><code>sum(<var>n*</var>)</code></dt>
+<dt id="function-sum"><code>sum(<var>n*</var>)</code></dt>
 <dd>Returns the sum of all arguments. If no arguments were provided, <code>0</code> is returned.</dd>
 </dl>
 </div>
@@ -201,9 +291,9 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <div id="misc-functions" class="subsection">
 <h3>Miscellaneous functions</h3>
 <dl>
-<dt><code>id(value)</code></dt>
+<dt id="function-id"><code>id(value)</code></dt>
 <dd>Identity function. Returns the value given.</dd>
-<dt><code>noOp()</code></dt>
+<dt id="function-noOp"><code>noOp()</code></dt>
 <dd>Does nothing, returns nothing.</dd>
 </dl>
 </div>
