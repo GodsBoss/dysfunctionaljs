@@ -30,25 +30,30 @@ function createOutput(doc, target){
 			numberOfTests++;
 			var result=results[i];
 			var item=doc.createElement('li');
-			if (result.success){
+			if (result.success && !result.error){
 				item.innerHTML='<span class="result">Success:</span> <span class="description">'+result.description+'</span>'+
 					' <span class="assertions">('+result.assertions+' assertion(s))</span>';
 				item.className='success';
 				successes++;
 				list.appendChild(item);}
 			else{
-				item.innerHTML='<span class="result">Failure:</span> <span class="description">'+result.description+'</span>'+
-					' <span class="assertions">('+result.assertions+' assertions(s))</span>'+
-					'<br><span class="failed-assertions">'+result.failures.length+' assertions failed:</span>';
-				var failList='';
-				for(var j=0,max=result.failures.length;j<max;j++){
-					var failure=result.failures[j];
-					failList+='<li>'+'Expected: '+failure.expected+'<br>Instead: '+failure.instead+
-					(failure.message?'<br>Message: '+failure.message:'')+
-					'</li>';}
-				item.innerHTML+='<ul>'+failList+'</ul>';
+				item.innerHTML=
+					'<span class="result">Failure:</span> <span class="description">'+result.description+'</span>'+
+					' <span class="assertions">('+result.assertions+' assertions(s))</span>';
+				if (result.failures.length>0){
+					var failList='';
+					for(var j=0,max=result.failures.length;j<max;j++){
+						var failure=result.failures[j];
+						failList+='<li>'+'Expected: '+failure.expected+'<br>Instead: '+failure.instead+
+						(failure.message?'<br>Message: '+failure.message:'')+
+						'</li>';}
+					item.innerHTML+=
+						'<br><span class="failed-assertions">'+result.failures.length+' assertions failed:</span>'+
+						'<ul>'+failList+'</ul>';}
 				item.className='failure';
 				failures++;
+				if (result.error){
+					item.innerHTML+='<br><span class="error">Error: '+result.error+'</span>';}
 				list.insertBefore(item, list.firstChild);}}
 		var summary=doc.createElement('p');
 		summary.className='summary '+(failures?'failure':'success');

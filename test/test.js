@@ -164,9 +164,12 @@ var TestFramework=(function(){
 				var assertSuccesses=[];
 				var assertFailures=[];
 				var testResult={description:test.description};
-				test.test(new Runner(outInjector(assertSuccesses, assertFailures)));
+				try{
+					test.test(new Runner(outInjector(assertSuccesses, assertFailures)));}
+				catch(e){
+					testResult.error=e.message||'No error message.';}
 				testResult.assertions=assertSuccesses.length+assertFailures.length;
-				testResult.success=assertFailures.length==0;
+				testResult.success=assertFailures.length==0 && !testResult.error;
 				testResult.failures=assertFailures;
 				results.push(testResult);
 				}
