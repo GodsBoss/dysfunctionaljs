@@ -34,7 +34,7 @@
 <h3>Higher-order functions</h3>
 <p>The real strength of functional languages is the combination of existing functions into new ones. Therefore some higher-order functions, most of them known from other languages like Haskell, are provided.</p>
 <h3>Prototypal extensions</h3>
-<p>Prototypal extensions are possible, but inactive by default. You can activate them, if you want.</p>
+<p>Prototypal extensions are possible, but inactive by default. You can activate them, if you want. See <a href="#function-activatePrototypeExtensions"><code>activatePrototypeExtensions</code></a>.</p>
 <h3>Chaining</h3>
 <p>At the moment, chaining is neither implemented nor even planned.</p>
 </div>
@@ -151,6 +151,12 @@
 <ul>
 <li><a href="#function-id"><code>id</code></a></li>
 <li><a href="#function-noOp"><code>noOp</code></a></li>
+</ul>
+</dd>
+<dt><a href="#library-functions">Library functions</a></dt>
+<dd>
+<ul>
+<li><a href="#function-activatePrototypeExtensions"><code>activatePrototypeExtensions</code></a></li>
 </ul>
 </dd>
 </dl>
@@ -327,6 +333,14 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <dd>Identity function. Returns the <var>value</var> given.</dd>
 <dt id="function-noOp"><code>noOp()</code></dt>
 <dd>Does nothing, returns nothing.</dd>
+</dl>
+</div>
+<div id="library-functions" class="subsection">
+<h3>Library functions</h3>
+<p>These functions do not belong to the regular <abbr title="Application Programming Interface">API</abbr>. Instead they fullfill administration/management tasks of the library.</p>
+<dl>
+<dt id="function-activatePrototypeExtensions"><code>activatePrototypeExtensions()</code></dt>
+<dd>Activates dysfunctional.JS’ prototypal extensions.</dd>
 </dl>
 </div>
 <div id="functions-by-pureness">

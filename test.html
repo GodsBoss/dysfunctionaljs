@@ -14,6 +14,7 @@ function runTests(lib){
 	var hint=document.getElementById('run-hint');
 	hint.parentNode.removeChild(hint);
 	var lib=dysfunctional; // Shortcut
+	lib.activatePrototypeExtensions();
 
 	// The tests.
 	function getTests(){
@@ -398,7 +399,15 @@ function runTests(lib){
 					fw.assertTruthy(cHarM>=2.31 && cHarM<=2.311, 'Harmonic mean (custom functions).');
 				},
 				'description':'Test median and means.',
-				'functions':['median','arithmeticMean','geometricMean','harmonicMean']}
+				'functions':['median','arithmeticMean','geometricMean','harmonicMean']},
+			{
+				'test':function(fw){
+					fw.assertTruthy((8).gt(4));
+					fw.assertEqual(7, (-7).abs());
+					fw.assertFalsy((true).not());
+					fw.assertFalsy((true).not.hold()());},
+				'description':'Prototypal extensions.',
+				'functions':[]}
 		];}
 
 	var tests=getTests();

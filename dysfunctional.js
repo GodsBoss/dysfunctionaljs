@@ -10,6 +10,9 @@
 var dysfunctional=(function(){
 	var lib={};
 
+	// Global object.
+	var global=this;
+
 	/**
 	* Returns a random integer from min to max.
 	* @param integer min
@@ -835,5 +838,84 @@ var dysfunctional=(function(){
 	lib.trim=trim;
 	lib.xnor=xnor;
 	lib.xor=xor;
+
+	// Prototypal extensions (optional)
+	var protos={
+		'Number':[
+			'add',
+			'multiply',
+			'subtract',
+			'divide',
+			'reciprocal',
+			'gt',
+			'gte',
+			'lt',
+			'lte',
+			'ifSgn',
+			'opIfSgn',
+			'negate'],
+		'String':['trim','ltrim','rtrim'],
+		'Array':[
+			'indexOf',
+			'lastIndexOf',
+			'forEach',
+			'map',
+			'every',
+			'some',
+			'filter',
+			'reduce',
+			'reduceRight',
+			'first',
+			'last',
+			'head',
+			'tail'],
+		'Boolean':[
+			'and',
+			'or',
+			'xor',
+			'nand',
+			'nor',
+			'xnor',
+			'not',
+			'opIfElse',
+			'ifElse'],
+		'Function':['bind','compose','curry','generator','hold']};
+
+	var fromMathToNumber=[
+		'abs',
+		'acos',
+		'asin',
+		'atan',
+		'ceil',
+		'cos',
+		'exp',
+		'floor',
+		'log',
+		'pow',
+		'round',
+		'sin',
+		'sqrt',
+		'tan'];
+
+	/**
+	* Activate prototypal extensions.
+	*/
+	lib.activatePrototypeExtensions=function(){
+		// Add methods for lib functions.
+		for(var prop in protos){
+			if (protos.hasOwnProperty(prop)){
+				var proto=global[prop].prototype;
+				var meths=protos[prop];
+				forEach(meths, function(meth, i, arr){
+					if (!proto.hasOwnProperty(meth)){
+						proto[meth]=function(){
+							return lib[meth].apply(null, Array.prototype.concat.call([this], toArray(arguments)));};}});}}
+
+		// Add Math object number functions.
+		numProto=Number.prototype;
+		forEach(fromMathToNumber, function(name, i, arr){
+			if (!numProto.hasOwnProperty(name)){
+				numProto[name]=function(){
+					return Math[name].apply(null, Array.prototype.concat.call([this], toArray(arguments)));};}});}
 
 	return lib;})();
