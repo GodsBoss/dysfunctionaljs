@@ -65,9 +65,13 @@ function runTests(lib){
 					fw.assertFalsy(lib.lt(-4, -6));
 					fw.assertTruthy(lib.lte(-1,1));
 					fw.assertTruthy(lib.lte(50000, Infinity));
-					},
-				'description':'Number comparisons: lt, lte, gt, gte',
-				'functions':['lt','lte','gt','gte']},
+					fw.assertTruthy(lib.between(200, 100, 500));
+					fw.assertTruthy(lib.between(50, 50, 200));
+					fw.assertTruthy(lib.between(300,75,300));
+					fw.assertFalsy(lib.between(99, 100, 200));
+					fw.assertFalsy(lib.between(304, 302, 303));},
+				'description':'Number comparisons: lt, lte, gt, gte, between',
+				'functions':['lt','lte','gt','gte', 'between']},
 			{
 				'test':function(fw){
 					fw.assertEqual(15, lib.add(-5, 20));
@@ -368,7 +372,33 @@ function runTests(lib){
 						var r=lib.random(2,8);
 						fw.assertTruthy(r>=2&&r<=8);}},
 				'description':'Random numbers.',
-				'functions':['random']}
+				'functions':['random']},
+			{
+				'test':function(fw){
+					var data=[1,2,7,8,4,1,9,3]; // Sorted: 1,1,2,3,4,7,8,9
+
+					// With standard functions.
+					var med=lib.median(data);
+					var arM=lib.arithmeticMean(data);
+					var geoM=lib.geometricMean(data);
+					var harM=lib.harmonicMean(data);
+					fw.assertTruthy(med==3||med==4, 'Median (standard).');
+					fw.assertTruthy(arM==4.375, 'Arithmetic mean (standard).');
+					fw.assertTruthy(geoM>=3.2383 && geoM<=3.239, 'Geometric mean (standard).');
+					fw.assertTruthy(harM>=2.31 && harM<=2.311, 'Harmonic mean (standard).');
+
+					// With custom functions.
+					var cMed=lib.median(data, Math.sgn);
+					var cArM=lib.arithmeticMean(data, lib.add, lib.divide);
+					var cGeoM=lib.geometricMean(data, lib.multiply, Math.pow);
+					var cHarM=lib.harmonicMean(data, lib.add, lib.divide, 1);
+					fw.assertTruthy(cMed==3||cMed==4, 'Median (custom functions).');
+					fw.assertTruthy(cArM==4.375, 'Arithmetic mean (custom functions).');
+					fw.assertTruthy(cGeoM>=3.2383 && cGeoM<=3.239, 'Geometric mean (custom functions).');
+					fw.assertTruthy(cHarM>=2.31 && cHarM<=2.311, 'Harmonic mean (custom functions).');
+				},
+				'description':'Test median and means.',
+				'functions':['median','arithmeticMean','geometricMean','harmonicMean']}
 		];}
 
 	var tests=getTests();

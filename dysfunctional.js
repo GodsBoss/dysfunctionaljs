@@ -336,6 +336,15 @@ var dysfunctional=(function(){
 		return left <= right;}
 
 	/**
+	* Checks wether a value is between given bounds.
+	* @param number value
+	* @param number min
+	* @param number max
+	*/
+	function between(value, min, max){
+		return value>=min && value<=max;}
+
+	/**
 	* Adds two numbers and returns the result.
 	*
 	* @param Number a
@@ -534,6 +543,67 @@ var dysfunctional=(function(){
 			result.push(obj[arguments[i]]);}
 		return result;}
 
+	/**
+	* Returns the median of the values.
+	* @param array values
+	* @param function comparator (optional) A comparator as accepted by Array.prototype.sort().
+	* @return mixed
+	* @throws TypeError if no values were given.
+	*/
+	function median(values, comparator){
+		if (!values.length){
+			throw new TypeError('Median can only be calculated with at least one value.');}
+		var temp=toArray(values);
+		temp.sort(comparator);
+		return temp[Math.floor(temp.length/2)];}
+
+	/**
+	* Returns the arithmetic mean of the values.
+	* @param array values
+	* @param function pAdd (optional)
+	* @param function pDiv (optional)
+	* @return mixed
+	* @throws TypeError if no values were given.
+	*/
+	function arithmeticMean(values, pAdd, pDiv){
+		pAdd=pAdd||add;
+		pDiv=pDiv||divide;
+		return pDiv(reduce(values, pAdd), values.length);}
+
+	/**
+	* Returns the geometric mean of the values.
+	* @param array values
+	* @param function pMul (optional)
+	* @param function pExp (optional)
+	* @return mixed
+	* @throws TypeError if no values were given.
+	*/
+	function geometricMean(values, pMul, pExp){
+		pMul=pMul||multiply;
+		pExp=pExp||Math.pow;
+		return pExp(reduce(values, pMul), 1/values.length);}
+
+	/**
+	* Returns the harmonic mean of the values.
+	* @param array values
+	* @param function pAdd (optional)
+	* @param function pDiv (optional)
+	* @param mixed unit (optional)
+	* @param 
+	*/
+	function harmonicMean(values, pAdd, pDiv, unit){
+		pAdd=pAdd||add;
+		pDiv=pDiv||divide;
+		unit=(arguments.length>=4?unit:1);
+		var num;
+		var recs=map(values, function(n, i){
+			if (i==0){
+				num=unit;}
+			else{
+				num=pAdd(num, unit);}
+			return pDiv(unit, n);});
+		return pDiv(num, reduce(recs, pAdd));}
+
 	// Implementation of functional variants of some methods found in
 	// ECMA-262 5th Ed., but not ECMA-262 3rd Ed.
 
@@ -710,6 +780,8 @@ var dysfunctional=(function(){
 	// Public API
 	lib.add=add;
 	lib.and=and;
+	lib.arithmeticMean=arithmeticMean;
+	lib.between=between;
 	lib.bind=bind;
 	lib.compose=compose;
 	lib.constant=constant;
@@ -720,8 +792,10 @@ var dysfunctional=(function(){
 	lib.first=first;
 	lib.forEach=forEach;
 	lib.generator=generator;
+	lib.geometricMean=geometricMean;
 	lib.gt=gt;
 	lib.gte=gte;
+	lib.harmonicMean=harmonicMean;
 	lib.head=head;
 	lib.hold=hold;
 	lib.id=id;
@@ -737,6 +811,7 @@ var dysfunctional=(function(){
 	lib.lte=lte;
 	lib.ltrim=ltrim;
 	lib.map=map;
+	lib.median=median;
 	lib.merge=merge;
 	lib.multiply=multiply;
 	lib.negate=negate;
