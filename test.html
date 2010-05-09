@@ -350,7 +350,18 @@ function runTests(lib){
 					
 					},
 				'description':'Extraction of items from arrays and objects.',
-				'functions':['item','items']}
+				'functions':['item','items']},
+			{
+				'test':function(fw){
+					var s1='\n foo \t';
+					fw.assertEqual('foo', lib.trim(s1), 'Trim.');
+					fw.assertEqual(3, lib.trim(s1).length, 'Trim length.');
+					fw.assertEqual('\n foo', lib.rtrim(s1), 'Trim right.');
+					fw.assertEqual(5, lib.rtrim(s1).length, 'Right trim length.');
+					fw.assertEqual('foo \t', lib.ltrim(s1), 'Trim left.');
+					fw.assertEqual(5, lib.ltrim(s1).length, 'Left trim length.');},
+				'description':'Trim whitespace.',
+				'functions':['trim','ltrim','rtrim']}
 		];}
 
 	var tests=getTests();

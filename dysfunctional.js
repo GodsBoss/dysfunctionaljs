@@ -11,6 +11,39 @@ var dysfunctional=(function(){
 	var lib={};
 
 	/**
+	* RegExp objects used by trim, ltrim and rtrim.
+	*/
+	var ws='\\uFEFF\\u0009\\u000B\\u000C\\u0020\\u00A0\\u000A\\u000D\\u2028\\u2029';
+	var trimRE=new RegExp('^['+ws+']*([^'+ws+']*)['+ws+']*$');
+	var ltrimRE=new RegExp('^['+ws+']+');
+	var rtrimRE=new RegExp('['+ws+']+$');
+
+	/**
+	* Trims all whitespace from both sides of the string.
+	* Should work like ECMA-262 5th Ed.'s String.prototype.trim().
+	* @param string s
+	* @return string
+	*/
+	function trim(s){
+		return s.replace(trimRE, '$1');}
+
+	/**
+	* Trims whitespace from the left side of the string.
+	* @param string s
+	* @return string
+	*/
+	function ltrim(s){
+		return s.replace(ltrimRE, '');}
+
+	/**
+	* Trims whitespace from the right side of the string.
+	* @param string s
+	* @return string
+	*/
+	function rtrim(s){
+		return s.replace(rtrimRE, '');}
+
+	/**
 	* Functification of &&.
 	* Returns true, if both arguments are truthy, else false.
 	* @param mixed left
@@ -693,6 +726,7 @@ var dysfunctional=(function(){
 	lib.lastIndexOf=lastIndexOf;
 	lib.lt=lt;
 	lib.lte=lte;
+	lib.ltrim=ltrim;
 	lib.map=map;
 	lib.merge=merge;
 	lib.multiply=multiply;
@@ -708,10 +742,12 @@ var dysfunctional=(function(){
 	lib.reciprocal=reciprocal;
 	lib.reduce=reduce;
 	lib.reduceRight=reduceRight;
+	lib.rtrim=rtrim;
 	lib.some=some;
 	lib.subtract=subtract;
 	lib.sum=sum;
 	lib.tail=tail;
+	lib.trim=trim;
 	lib.xnor=xnor;
 	lib.xor=xor;
 

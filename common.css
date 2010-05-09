@@ -62,11 +62,14 @@
 	margin-top:0;}
 
 #index ul,
-#index li{
+#index li,
+#functions-by-pureness ul,
+#functions-by-pureness li{
 	margin:0;
 	padding:0;}
 
-#index li{
+#index li,
+#functions-by-pureness li{
 	padding-left:5px;
 	padding-right:5px;
 	list-style-type:none;

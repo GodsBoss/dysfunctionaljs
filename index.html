@@ -107,6 +107,7 @@
 </ul>
 </dd>
 <dt><a href="#math-functions">Math functions</a></dt>
+<dd><p>None yet.</p></dd>
 <dt><a href="#number-functions">Number functions</a></dt>
 <dd>
 <ul>
@@ -134,6 +135,11 @@
 </ul>
 </dd>
 <dt><a href="#string-functions">String functions</a></dt>
+<dd>
+<li><a href="#function-ltrim"><code>ltrim</code></a></li>
+<li><a href="#function-rtrim"><code>rtrim</code></a></li>
+<li><a href="#function-trim"><code>trim</code></a></li>
+</dd>
 <dt><a href="#misc-functions">Miscellaneous functions</a></dt>
 <dd>
 <ul>
@@ -286,13 +292,21 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 </div>
 <div id="string-functions" class="subsection">
 <h3>String functions</h3>
-<p>None yet.</p>
+<p>Functions which manipulate strings.</p>
+<dl>
+<dt id="function-ltrim"><code>ltrim(<var>s</var>)</code></dt>
+<dd>Returns a string which is like <var>s</var>, but with all left whitespace removed.</dd>
+<dt id="function-rtrim"><code>rtrim(<var>s</var>)</code></dt>
+<dd>Returns a string which is like <var>s</var>, but with all right whitespace removed.</dd>
+<dt id="function-trim"><code>trim(<var>s</var>)</code></dt>
+<dd>Returns a string which is like <var>s</var>, but with all whitespace on the left and on the right removed.</dd>
+</dl>
 </div>
 <div id="misc-functions" class="subsection">
 <h3>Miscellaneous functions</h3>
 <dl>
-<dt id="function-id"><code>id(value)</code></dt>
-<dd>Identity function. Returns the value given.</dd>
+<dt id="function-id"><code>id(<var>value</var>)</code></dt>
+<dd>Identity function. Returns the <var>value</var> given.</dd>
 <dt id="function-noOp"><code>noOp()</code></dt>
 <dd>Does nothing, returns nothing.</dd>
 </dl>
@@ -301,63 +315,66 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <h3>Functions by pureness</h3>
 <h4>Pure</h4>
 <ul>
-<li><code>add</code></li>
-<li><code>and</code></li>
-<li><code>bind</code></li>
-<li><code>compose</code></li>
-<li><code>constant</code></li>
-<li><code>curry</code></li>
-<li><code>divide</code></li>
-<li><code>first</code></li>
-<li><code>generator</code></li>
-<li><code>gt</code></li>
-<li><code>gte</code></li>
-<li><code>head</code></li>
-<li><code>hold</code></li>
-<li><code>id</code></li>
-<li><code>indexOf</code></li>
-<li><code>item</code></li>
-<li><code>items</code></li>
-<li><code>last</code></li>
-<li><code>lastIndexOf</code></li>
-<li><code>lt</code></li>
-<li><code>lte</code></li>
-<li><code>merge</code></li>
-<li><code>multiply</code></li>
-<li><code>nand</code></li>
-<li><code>negate</code></li>
-<li><code>noOp</code></li>
-<li><code>nor</code></li>
-<li><code>not</code></li>
-<li><code>opIfElse</code></li>
-<li><code>opIfSgn</code></li>
-<li><code>or</code></li>
-<li><code>product</code></li>
-<li><code>reciprocal</code></li>
-<li><code>subtract</code></li>
-<li><code>sum</code></li>
-<li><code>tail</code></li>
-<li><code>xnor</code></li>
-<li><code>xor</code></li>
+<li><a href="#function-add"><code>add</code></a></li>
+<li><a href="#function-and"><code>and</code></a></li>
+<li><a href="#function-bind"><code>bind</code></a></li>
+<li><a href="#function-compose"><code>compose</code></a></li>
+<li><a href="#function-constant"><code>constant</code></a></li>
+<li><a href="#function-curry"><code>curry</code></a></li>
+<li><a href="#function-divide"><code>divide</code></a></li>
+<li><a href="#function-first"><code>first</code></a></li>
+<li><a href="#function-generator"><code>generator</code></a></li>
+<li><a href="#function-gt"><code>gt</code></a></li>
+<li><a href="#function-gte"><code>gte</code></a></li>
+<li><a href="#function-head"><code>head</code></a></li>
+<li><a href="#function-hold"><code>hold</code></a></li>
+<li><a href="#function-id"><code>id</code></a></li>
+<li><a href="#function-indexOf"><code>indexOf</code></a></li>
+<li><a href="#function-item"><code>item</code></a></li>
+<li><a href="#function-items"><code>items</code></a></li>
+<li><a href="#function-last"><code>last</code></a></li>
+<li><a href="#function-lastIndexOf"><code>lastIndexOf</code></a></li>
+<li><a href="#function-lt"><code>lt</code></a></li>
+<li><a href="#function-lte"><code>lte</code></a></li>
+<li><a href="#function-ltrim"><code>ltrim</code></a></li>
+<li><a href="#function-merge"><code>merge</code></a></li>
+<li><a href="#function-multiply"><code>multiply</code></a></li>
+<li><a href="#function-nand"><code>nand</code></a></li>
+<li><a href="#function-negate"><code>negate</code></a></li>
+<li><a href="#function-noOp"><code>noOp</code></a></li>
+<li><a href="#function-nor"><code>nor</code></a></li>
+<li><a href="#function-not"><code>not</code></a></li>
+<li><a href="#function-opIfElse"><code>opIfElse</code></a></li>
+<li><a href="#function-opIfSgn"><code>opIfSgn</code></a></li>
+<li><a href="#function-or"><code>or</code></a></li>
+<li><a href="#function-product"><code>product</code></a></li>
+<li><a href="#function-reciprocal"><code>reciprocal</code></a></li>
+<li><a href="#function-rtrim"><code>rtrim</code></a></li>
+<li><a href="#function-subtract"><code>subtract</code></a></li>
+<li><a href="#function-sum"><code>sum</code></a></li>
+<li><a href="#function-tail"><code>tail</code></a></li>
+<li><a href="#function-trim"><code>trim</code></a></li>
+<li><a href="#function-xnor"><code>xnor</code></a></li>
+<li><a href="#function-xor"><code>xor</code></a></li>
 </ul>
 <h4>Likely pure</h4>
 <ul>
-<li><code>every</code></li>
-<li><code>filter</code></li>
-<li><code>ifElse</code></li>
-<li><code>ifSgn</code></li>
-<li><code>map</code></li>
-<li><code>reduce</code></li>
-<li><code>reduceRight</code></li>
-<li><code>some</code></li>
+<li><a href="#function-every"><code>every</code></a></li>
+<li><a href="#function-filter"><code>filter</code></a></li>
+<li><a href="#function-ifElse"><code>ifElse</code></a></li>
+<li><a href="#function-ifSgn"><code>ifSgn</code></a></li>
+<li><a href="#function-map"><code>map</code></a></li>
+<li><a href="#function-reduce"><code>reduce</code></a></li>
+<li><a href="#function-reduceRight"><code>reduceRight</code></a></li>
+<li><a href="#function-some"><code>some</code></a></li>
 </ul>
 <h4>Unlikely pure</h4>
 <ul>
-<li><code>forEach</code></li>
+<li><a href="#function-forEach"><code>forEach</code></a></li>
 </ul>
 <h4>Impure</h4>
 <ul>
-<li><code>inject</code></li>
+<li><a href="#function-inject"><code>inject</code></a></li>
 </ul>
 </div>
 </div>
