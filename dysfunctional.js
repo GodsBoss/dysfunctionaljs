@@ -11,6 +11,15 @@ var dysfunctional=(function(){
 	var lib={};
 
 	/**
+	* Returns a random integer from min to max.
+	* @param integer min
+	* @param integer max
+	* @return integer
+	*/
+	function random(min, max){
+		return Math.floor(Math.random()*(max-min)+min);}
+
+	/**
 	* RegExp objects used by trim, ltrim and rtrim.
 	*/
 	var ws='\\uFEFF\\u0009\\u000B\\u000C\\u0020\\u00A0\\u000A\\u000D\\u2028\\u2029';
@@ -739,6 +748,7 @@ var dysfunctional=(function(){
 	lib.opIfSgn=opIfSgn;
 	lib.or=or;
 	lib.product=product;
+	lib.random=random;
 	lib.reciprocal=reciprocal;
 	lib.reduce=reduce;
 	lib.reduceRight=reduceRight;

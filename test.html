@@ -361,7 +361,14 @@ function runTests(lib){
 					fw.assertEqual('foo \t', lib.ltrim(s1), 'Trim left.');
 					fw.assertEqual(5, lib.ltrim(s1).length, 'Left trim length.');},
 				'description':'Trim whitespace.',
-				'functions':['trim','ltrim','rtrim']}
+				'functions':['trim','ltrim','rtrim']},
+			{
+				'test':function(fw){
+					for(var i=0;i<100;i++){
+						var r=lib.random(2,8);
+						fw.assertTruthy(r>=2&&r<=8);}},
+				'description':'Random numbers.',
+				'functions':['random']}
 		];}
 
 	var tests=getTests();
