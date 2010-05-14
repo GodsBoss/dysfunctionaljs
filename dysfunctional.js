@@ -611,6 +611,36 @@ var dysfunctional=(function(){
 			return pDiv(unit, n);});
 		return pDiv(num, reduce(recs, pAdd));}
 
+	/**
+	* Loops while a given condition is true.
+	* Returns the result of the last action.
+	*
+	* @param function condition
+	* @param function action
+	* @param object context (optional)
+	* @return mixed
+	*/
+	function loop(condition, action, context){
+		var result;
+		while(condition.call(context)){
+			result=action.call(context);}
+		return result;}
+
+	/**
+	* Loops until a given condition is true.
+	* Returns the result of the last action.
+	*
+	* @param function condition
+	* @param function action
+	* @param object context (optional)
+	* @return mixed
+	*/
+	function until(condition, action, context){
+		var result;
+		while(!condition.call(context)){
+			result=action.call(context);}
+		return result;}
+
 	// Implementation of functional variants of some methods found in
 	// ECMA-262 5th Ed., but not ECMA-262 3rd Ed.
 
@@ -814,6 +844,7 @@ var dysfunctional=(function(){
 	lib.items=items;
 	lib.last=last;
 	lib.lastIndexOf=lastIndexOf;
+	lib.loop=loop;
 	lib.lt=lt;
 	lib.lte=lte;
 	lib.ltrim=ltrim;
@@ -840,6 +871,7 @@ var dysfunctional=(function(){
 	lib.sum=sum;
 	lib.tail=tail;
 	lib.trim=trim;
+	lib.until=until;
 	lib.xnor=xnor;
 	lib.xor=xor;
 
@@ -885,7 +917,7 @@ var dysfunctional=(function(){
 			'not',
 			'opIfElse',
 			'ifElse'],
-		'Function':['bind','compose','curry','generator','hold']};
+		'Function':['bind','compose','curry','generator','hold','loop','until']};
 
 	var fromMathToNumber=[
 		'abs',

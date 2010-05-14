@@ -432,7 +432,32 @@ function runTests(lib){
 					fw.assertEqual('24px', obj4.foo(3, 'px'));
 				},
 				'description':'Object augmentation - add method.',
-				'functions':['addMethod']}
+				'functions':['addMethod']},
+			{
+				'test':function(fw){
+					fw.assertEqual(
+						55,
+						lib.loop(
+							function(){
+								return this.x<10;},
+							function(){
+								this.x++;
+								this.sum+=this.x;
+								return this.sum;},
+							{x:0,sum:0}));
+					fw.assertEqual(
+						55,
+						lib.until(
+							function(){
+								return this.x>=10;},
+							function(){
+								this.x++;
+								this.sum+=this.x;
+								return this.sum;},
+							{x:0,sum:0}));
+				},
+				'description':'Looping - loop and until.',
+				'functions':['loop','until']}
 		];}
 
 	var tests=getTests();

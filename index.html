@@ -150,7 +150,9 @@
 <dd>
 <ul>
 <li><a href="#function-id"><code>id</code></a></li>
+<li><a href="#function-loop"><code>loop</code></a></li>
 <li><a href="#function-noOp"><code>noOp</code></a></li>
+<li><a href="#function-until"><code>until</code></a></li>
 </ul>
 </dd>
 <dt><a href="#library-functions">Library functions</a></dt>
@@ -332,8 +334,12 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <dl>
 <dt id="function-id"><code>id(<var>value</var>)</code></dt>
 <dd>Identity function. Returns the <var>value</var> given.</dd>
+<dt id="function-loop"><code>loop(<var>condition</var>, <var>action</var> [, <var>context</var>])</dt>
+<dd>Functionified loop. As long as the return value of <var>condition</var> is truthy, <var>action</var> will be called. For both, the <code>this</code> value is <var>context</var>, if given.</dd>
 <dt id="function-noOp"><code>noOp()</code></dt>
 <dd>Does nothing, returns nothing.</dd>
+<dt id="function-until"><code>until(<var>condition</var>, <var>action</var> [, <var>context</var>])</dt>
+<dd>Functionified loop. As long as the return value of <var>condition</var> is falsy, <var>action</var> will be called. For both, the <code>this</code> value is <var>context</var>, if given.</dd>
 </dl>
 </div>
 <div id="library-functions" class="subsection">
@@ -410,6 +416,8 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <h4>Unlikely pure</h4>
 <ul>
 <li><a href="#function-forEach"><code>forEach</code></a></li>
+<li><a href="#function-loop"><code>loop</code></a></li>
+<li><a href="#function-until"><code>until</code></a></li>
 </ul>
 <h4>Impure</h4>
 <ul>
