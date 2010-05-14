@@ -641,6 +641,24 @@ var dysfunctional=(function(){
 			result=action.call(context);}
 		return result;}
 
+	/**
+	* Returns true, if the number is odd, else false.
+	*
+	* @param number n
+	* @return boolean
+	*/
+	function odd(n){
+		return !!(n%2);}
+
+	/**
+	* Returns true, if the number is even, else false.
+	*
+	* @param number n
+	*@return boolean
+	*/
+	function even(n){
+		return !(n%2);}
+
 	// Implementation of functional variants of some methods found in
 	// ECMA-262 5th Ed., but not ECMA-262 3rd Ed.
 
@@ -824,6 +842,7 @@ var dysfunctional=(function(){
 	lib.constant=constant;
 	lib.curry=curry;
 	lib.divide=divide;
+	lib.even=even;
 	lib.every=every;
 	lib.filter=filter;
 	lib.first=first;
@@ -857,6 +876,7 @@ var dysfunctional=(function(){
 	lib.noOp=noOp;
 	lib.nor=nor;
 	lib.not=not;
+	lib.odd=odd;
 	lib.opIfElse=opIfElse;
 	lib.opIfSgn=opIfSgn;
 	lib.or=or;
@@ -889,7 +909,9 @@ var dysfunctional=(function(){
 			'lte',
 			'ifSgn',
 			'opIfSgn',
-			'negate'],
+			'negate',
+			'odd',
+			'even'],
 		'String':['trim','ltrim','rtrim'],
 		'Array':[
 			'indexOf',

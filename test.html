@@ -457,7 +457,16 @@ function runTests(lib){
 							{x:0,sum:0}));
 				},
 				'description':'Looping - loop and until.',
-				'functions':['loop','until']}
+				'functions':['loop','until']},
+			{
+				'test':function(fw){
+					fw.assertTruthy(lib.even(8));
+					fw.assertFalsy(lib.even(-7));
+					fw.assertTruthy(lib.odd(-3));
+					fw.assertFalsy(lib.odd(4));},
+				'description':'Odd and even.',
+				'functions':['even','odd']}
+					
 		];}
 
 	var tests=getTests();
