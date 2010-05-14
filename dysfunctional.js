@@ -13,6 +13,10 @@ var dysfunctional=(function(){
 	// Global object.
 	var global=this;
 
+	// Some shortcuts.
+	var concat=Array.prototype.concat;
+	var slice=Array.prototype.slice;
+
 	/**
 	* Returns a random integer from min to max.
 	* @param integer min
@@ -868,7 +872,9 @@ var dysfunctional=(function(){
 			'first',
 			'last',
 			'head',
-			'tail'],
+			'tail',
+			'item',
+			'items'],
 		'Boolean':[
 			'and',
 			'or',
@@ -897,6 +903,59 @@ var dysfunctional=(function(){
 		'sqrt',
 		'tan'];
 
+	var otherProtos={
+		'Function':{
+			'forEach':{
+				pos:1},
+			'map':{
+				pos:1},
+			'filter':{
+				pos:1},
+			'every':{
+				pos:1},
+			'some':{
+				pos:1},
+			'reduce':{
+				pos:1},
+			'reduceRight':{
+				pos:1}}
+	};
+
+	/**
+	* Adds a function as a method to an object.
+	*
+	* If obj already has a property with that name and
+	* options.override is not true, the property will not
+	* be overwritten. If no property is present or
+	* options.override was set, the new property is a
+	* method.
+	*
+	* If options.thisPosition is null, the function will
+	* be just set as a method. If options.thisPosition is
+	* a number or not set, which means, it defaults to 0,
+	* this will be the position of the object itself in the
+	* argument list.
+	*
+	* @param object obj
+	* @param string name
+	* @param function func
+	* @param options (optional)
+	*/
+	function addMethod(obj, name, func, options){
+		options=options||{};
+		var thisPos=options.hasOwnProperty('thisPosition')?options.thisPosition:0;
+		if (!obj.hasOwnProperty(name) || options.override){
+			if (typeof thisPos=='number'){
+				obj[name]=function(){
+					var args=toArray(arguments);
+					return func.apply(this, concat.call(slice.call(args, 0, thisPos), [this], slice.call(args, thisPos)));};}
+			else{
+				obj[name]=func;}
+			return true;}
+		return false;}
+
+	lib.addMethod=addMethod;
+
 	/**
 	* Activate prototypal extensions.
 	*/
@@ -916,6 +975,17 @@ var dysfunctional=(function(){
 		forEach(fromMathToNumber, function(name, i, arr){
 			if (!numProto.hasOwnProperty(name)){
 				numProto[name]=function(){
-					return Math[name].apply(null, Array.prototype.concat.call([this], toArray(arguments)));};}});}
+					return Math[name].apply(null, Array.prototype.concat.call([this], toArray(arguments)));};}});
+
+		for(var prop in otherProtos){
+			if (otherProtos.hasOwnProperty(prop)){
+				var proto=global[prop].prototype;
+				var meths=otherProtos[prop];
+				for(var mName in meths){
+					if (meths.hasOwnProperty(mName)){
+						var meth=meths[mName];
+						var tName=meth.name||mName;
+						var config={override:false, thisPosition:meth.pos};
+						addMethod(proto, tName, lib[mName], config);}}}}}
 
 	return lib;})();

@@ -46,9 +46,10 @@ function runTests(lib){
 		return [
 			{
 				'test':function(fw){
+					fw.assertTruthy(typeof lib.noOp() == 'undefined');
 					fw.assertEqual('foo', lib.id('foo'));},
 				'description':'id()',
-				'functions':['id']},
+				'functions':['id', 'noOp']},
 			{
 				'test':function(fw){
 					fw.assertEqual('bar', lib.opIfElse(false, 'foo', 'bar'));
@@ -405,9 +406,33 @@ function runTests(lib){
 					fw.assertTruthy((8).gt(4));
 					fw.assertEqual(7, (-7).abs());
 					fw.assertFalsy((true).not());
-					fw.assertFalsy((true).not.hold()());},
+					fw.assertFalsy((true).not.hold()());
+					fw.assertEqual(6, [1,3,2].reduce(function(previous, item, index, collection){
+						return previous+(collection[index]==item?item:0);}, 0));
+					fw.assertEqualArrays([6,4,13], (function(n, i, arr){
+						return n*n+i+arr.length+this.add;}).map([2,1,3],{add:-1}));
+					},
 				'description':'Prototypal extensions.',
-				'functions':[]}
+				'functions':['activatePrototypeExtensions']},
+			{
+				'test':function(fw){
+					var obj1={foo:'old'};
+					lib.addMethod(obj1, 'foo', lib.noOp);
+					fw.assertEqual(obj1.foo, 'old');
+					var obj2={foo:'old'};
+					lib.addMethod(obj2, 'foo', lib.constant('new'), {override:true});
+					fw.assertEqual('new', obj2.foo());
+					var obj3={value:5};
+					lib.addMethod(obj3, 'foo', function(obj, x){
+						return obj.value+x;});
+					fw.assertEqual(8, obj3.foo(3));
+					var obj4={value:8};
+					lib.addMethod(obj4, 'foo', function(factor, obj, suffix){
+						return (factor*obj.value)+suffix;}, {thisPosition:1});
+					fw.assertEqual('24px', obj4.foo(3, 'px'));
+				},
+				'description':'Object augmentation - add method.',
+				'functions':['addMethod']}
 		];}
 
 	var tests=getTests();
