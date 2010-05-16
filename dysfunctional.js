@@ -121,6 +121,34 @@ var dysfunctional=(function(){
 		return (!left)==(!right);}
 
 	/**
+	* Returns all property names of an object.
+	* If 'all' is truthy, inherited names will be included.
+	*
+	* @param object obj
+	* @param mixed all (optional)
+	*/
+	function keys(obj, all){
+		var result=[];
+		for(var prop in obj){
+			if (all||obj.hasOwnProperty(prop)){
+				result.push(prop);}}
+		return result;}
+
+	/**
+	* Returns all property values of an object.
+	* If 'all' is truthy, inherited values will be included.
+	*
+	* @param object obj
+	* @param mixed all (optional)
+	*/
+	function values(obj, all){
+		var result=[];
+		for(var prop in obj){
+			if (all|obj.hasOwnProperty(prop)){
+				result.push(obj[prop]);}}
+		return result;}
+
+	/**
 	* Converts an object, usually an arguments object, to a real array.
 	*
 	* @param object obj
@@ -654,10 +682,85 @@ var dysfunctional=(function(){
 	* Returns true, if the number is even, else false.
 	*
 	* @param number n
-	*@return boolean
+	* @return boolean
 	*/
 	function even(n){
 		return !(n%2);}
+
+	/**
+	* Invokes f on every property of obj.
+	*
+	* @param object obj
+	* @param function f
+	* @param object context (optional)
+	*/
+	function forEachProperty(obj, f, context){
+		for (var prop in obj){
+			if (obj.hasOwnProperty(prop)){
+				f.call(context, obj[prop], prop, obj);}}}
+
+	/**
+	* Invokes f on every property of obj and returns the return values
+	* as an object.
+	*
+	* @param object obj
+	* @param function f
+	* @param object context (optional)
+	* @return object
+	*/
+	function mapProperties(obj, f, context){
+		var result={};
+		for (var prop in obj){
+			if (obj.hasOwnProperty(prop)){
+				result[prop]=f.call(context, obj[prop], prop, obj);}}
+		return result;}
+
+	/**
+	* Returns a filtered version of an object by only copying those
+	* properties, where f returns a truthy value.
+	*
+	* @param object obj
+	* @param function f
+	* @param object context
+	* @return object
+	*/
+	function filterProperties(obj, f, context){
+		var result={};
+		for (var prop in obj){
+			if (obj.hasOwnProperty(prop)){
+				if (f.call(context, obj[prop], prop, obj)){
+					result[prop]=obj[prop];}}}
+		return result;}
+
+	/**
+	* Checks if for every property a given condition holds.
+	*
+	* @param object obj
+	* @param function f
+	* @param object context (optional)
+	* @return boolean
+	*/
+	function everyProperty(obj, f, context){
+		for (var prop in obj){
+			if (obj.hasOwnProperty(prop)){
+				if (!f.call(context, obj[prop], prop, obj)){
+					return false;}}}
+		return true;}
+
+	/**
+	* Checks if some properties hold a given condition.
+	*
+	* @param object obj
+	* @param function f
+	* @param object context (optional)
+	* @return boolean
+	*/
+	function someProperty(obj, f, context){
+		for (var prop in obj){
+			if (obj.hasOwnProperty(prop)){
+				if (f.call(context, obj[prop], prop, obj)){
+					return true;}}}
+		return false;}
 
 	// Implementation of functional variants of some methods found in
 	// ECMA-262 5th Ed., but not ECMA-262 3rd Ed.
@@ -844,9 +947,12 @@ var dysfunctional=(function(){
 	lib.divide=divide;
 	lib.even=even;
 	lib.every=every;
+	lib.everyProperty=everyProperty;
 	lib.filter=filter;
+	lib.filterProperties=filterProperties;
 	lib.first=first;
 	lib.forEach=forEach;
+	lib.forEachProperty=forEachProperty;
 	lib.generator=generator;
 	lib.geometricMean=geometricMean;
 	lib.gt=gt;
@@ -861,6 +967,7 @@ var dysfunctional=(function(){
 	lib.inject=inject;
 	lib.item=item;
 	lib.items=items;
+	lib.keys=keys;
 	lib.last=last;
 	lib.lastIndexOf=lastIndexOf;
 	lib.loop=loop;
@@ -868,6 +975,7 @@ var dysfunctional=(function(){
 	lib.lte=lte;
 	lib.ltrim=ltrim;
 	lib.map=map;
+	lib.mapProperties=mapProperties;
 	lib.median=median;
 	lib.merge=merge;
 	lib.multiply=multiply;
@@ -887,11 +995,13 @@ var dysfunctional=(function(){
 	lib.reduceRight=reduceRight;
 	lib.rtrim=rtrim;
 	lib.some=some;
+	lib.someProperty=someProperty;
 	lib.subtract=subtract;
 	lib.sum=sum;
 	lib.tail=tail;
 	lib.trim=trim;
 	lib.until=until;
+	lib.values=values;
 	lib.xnor=xnor;
 	lib.xor=xor;
 

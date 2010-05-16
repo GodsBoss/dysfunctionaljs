@@ -138,8 +138,15 @@
 <dt><a href="#object-functions">Object functions</a></dt>
 <dd>
 <ul>
+<li><a href="#function-everyProperty"><code>everyProperty</code></a></li>
+<li><a href="#function-filterProperties"><code>filterProperties</code></a></li>
+<li><a href="#function-forEachProperty"><code>forEachProperty</code></a></li>
 <li><a href="#function-inject"><code>inject</code></a></li>
+<li><a href="#function-keys"><code>keys</code></a></li>
+<li><a href="#function-mapProperties"><code>mapProperties</code></a></li>
 <li><a href="#function-merge"><code>merge</code></a></li>
+<li><a href="#function-someProperty"><code>someProperty</code></a></li>
+<li><a href="#function-values"><code>values</code></a></li>
 </ul>
 </dd>
 <dt><a href="#string-functions">String functions</a></dt>
@@ -317,10 +324,54 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <div id="object-functions" class="subsection">
 <h3>Object functions</h3>
 <dl>
-<dt>inject(<var>target</var>, <var>sources*</var>)</dt>
+<dt id="function-everyProperty"><code>everyProperty(<var>obj</var>, <var>condition</var> [, <var>context</var>])</code></dt>
+<dd>Checks if every property of <var>obj</var> satisfies a given <var>condition</var>, which is called with three arguments (in order) and with <var>context</var> as <code>this</code> value:
+<ol>
+<li>Property value</li>
+<li>Property name</li>
+<li><var>obj</var></li>
+</ol>
+This is an object version of <a href="#function-every"><code>every</code></a>.</dd>
+<dt id="function-filterProperties"><code>filterProperties(<var>obj</var>, <var>condition</var> [, <var>context</var>])</code></dt>
+<dd>Creates a new object with properties from <var>obj</var>, but only those, for which a given <var>condition</var>, called with <var>context</var> as <code>this</code> value, is truthy. This <var>condition</var> is called with three arguments (in order):
+<ol>
+<li>Property value</li>
+<li>Property name</li>
+<li><var>obj</var></li>
+</ol>
+This is an object version of <a href="#function-filter"><code>filter</code></a>.</dd>
+<dt id="function-forEachProperty"><code>forEachProperty(<var>obj</var>, <var>f</var> [, <var>context</var>])</code></dt>
+<dd>Calls <var>f</var> for every property of <var>obj</var> with <var>context</var> as <code>this</code> value and these arguments (in order):
+<ol>
+<li>Property value</li>
+<li>Property name</li>
+<li><var>obj</var></li>
+</ol>
+This is an object version of <a href="#function-forEach"><code>forEach</code></a>.</dd>
+<dt id="function-keys"><code>keys(<var>obj</var> [, <var>all</var>])</code></dt>
+<dd>Returns all property names of <var>obj</var> as an array. If <var>all</var> is truthy (default: falsy), includes property names in the prototype chain.</dd>
+<dt id="function-inject"><code>inject(<var>target</var>, <var>sources*</var>)</code></dt>
 <dd>Injects the propierties of other objects into an objects. Properties are set in order, existing properties will be overwritten. Returns the target object.</dd>
-<dt>merge(<var>objs*</var>)</dt>
+<dt id="function-mapProperties"><code>mapProperties(<var>obj</var>, <var>transform</var> [, <var>context</var>])</code></dt>
+<dd>Maps properties from <var>obj</var> into a new object. Therefore, for each property, <var>transform</var> is called with <var>context</var> as <code>this</code> value and with three arguments (in order):
+<ol>
+<li>Property value</li>
+<li>Property name</li>
+<li><var>obj</var></li>
+</ol>
+This is an object version of <a href="#function-map"><code>map</code></a>.</dd>
+<dt id="function-merge"><code>merge(<var>objs*</var>)</code></dt>
 <dd>Creates a merged version of all objects. The properties of arguments with higher indices <em>overwrite</em> properties from arguments with lower indices. If no argument is provided at all, an “empty” objects is created, like one is created via <code>{}</code> or <code>new Object()</code>.</dd>
+<dt id="function-someProperty"><code>someProperty(<var>obj</var>, <var>condition</var> [, <var>context</var>])</code></dt>
+<dd>Checks if a given <var>condition</var> is truthy for at least some properties of <var>obj</var>. The <code>this</code> value of the call is <var>context</var> and three arguments are given (in order):
+<ol>
+<li>Property value</li>
+<li>Property name</li>
+<li><var>obj</var></li>
+</ol>
+This is an object version of <a href="#function-some"><code>some</code></a>.</dd>
+<dt id="function-values"><code>values(<var>obj</var> [, <var>all</var>])</code></dt>
+<dd>Returns all property values of <var>obj</var> as an array. If <var>all</var> is truthy (default: falsy), includes property values in the prototype chain.</dd>
 </dl>
 </div>
 <div id="string-functions" class="subsection">
@@ -380,6 +431,7 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <li><a href="#function-indexOf"><code>indexOf</code></a></li>
 <li><a href="#function-item"><code>item</code></a></li>
 <li><a href="#function-items"><code>items</code></a></li>
+<li><a href="#function-keys"><code>keys</code></a></li>
 <li><a href="#function-last"><code>last</code></a></li>
 <li><a href="#function-lastIndexOf"><code>lastIndexOf</code></a></li>
 <li><a href="#function-lt"><code>lt</code></a></li>
@@ -403,6 +455,7 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <li><a href="#function-sum"><code>sum</code></a></li>
 <li><a href="#function-tail"><code>tail</code></a></li>
 <li><a href="#function-trim"><code>trim</code></a></li>
+<li><a href="#function-values"><code>values</code></a></li>
 <li><a href="#function-xnor"><code>xnor</code></a></li>
 <li><a href="#function-xor"><code>xor</code></a></li>
 </ul>
@@ -410,20 +463,25 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <ul>
 <li><a href="#function-arithmeticMean"><code>arithmeticMean</code></a></li>
 <li><a href="#function-every"><code>every</code></a></li>
+<li><a href="#function-everyProperty"><code>everyProperty</code></li>
 <li><a href="#function-filter"><code>filter</code></a></li>
+<li><a href="#function-filterProperties"><code>filterProperties</code></a></li>
 <li><a href="#function-geometricMean"><code>geometricMean</code></a></li>
 <li><a href="#function-harmonicMean"><code>harmonicMean</code></a></li>
 <li><a href="#function-ifElse"><code>ifElse</code></a></li>
 <li><a href="#function-ifSgn"><code>ifSgn</code></a></li>
 <li><a href="#function-map"><code>map</code></a></li>
+<li><a href="#function-mapProperties"><code>mapProperties</code></a></li>
 <li><a href="#function-median"><code>median</code></a></li>
 <li><a href="#function-reduce"><code>reduce</code></a></li>
 <li><a href="#function-reduceRight"><code>reduceRight</code></a></li>
 <li><a href="#function-some"><code>some</code></a></li>
+<li><a href="#function-someProperty"><code>someProperty</code></a></li>
 </ul>
 <h4>Unlikely pure</h4>
 <ul>
 <li><a href="#function-forEach"><code>forEach</code></a></li>
+<li><a href="#function-forEachProperty"><code>forEachProperty</code></a></li>
 <li><a href="#function-loop"><code>loop</code></a></li>
 <li><a href="#function-until"><code>until</code></a></li>
 </ul>

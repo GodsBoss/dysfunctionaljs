@@ -465,7 +465,69 @@ function runTests(lib){
 					fw.assertTruthy(lib.odd(-3));
 					fw.assertFalsy(lib.odd(4));},
 				'description':'Odd and even.',
-				'functions':['even','odd']}
+				'functions':['even','odd']},
+			{
+				'test':function(fw){
+					var simpleObj={
+						a:'foo',
+						z:'bar',
+						b:'boofar'};
+					fw.assertEqualArrays(['a','b','z'], lib.keys(simpleObj).sort());
+					fw.assertEqualArrays(['bar','boofar','foo'], lib.values(simpleObj).sort());
+					function Bar(){}
+					Bar.prototype={x:'foo'};
+					var bar=new Bar();
+					bar.y='bar';
+					fw.assertEqualArrays(['y'], lib.keys(bar));
+					fw.assertEqualArrays(['bar'], lib.values(bar));
+					fw.assertEqualArrays(['x','y'], lib.keys(bar, true).sort());
+					fw.assertEqualArrays(['bar', 'foo'], lib.values(bar, true).sort());},
+				'description':'Keys and values.',
+				'functions':['keys','values']},
+
+			{
+				'test':function(fw){
+					function Bar(){}
+					Bar.prototype={x:200};
+					var bar=new Bar();
+					bar.y='bar';
+					bar.z='boofar';
+
+					// Every
+					fw.assertTruthy(lib.everyProperty(bar, function(value, name, obj){
+						return typeof value == 'string' && name != 'x' && this == obj && obj == bar && obj[name]==value;}, bar));
+					fw.assertFalsy(lib.everyProperty(bar, function(value, name, obj){
+						return name.length==3;}));
+
+					// Some
+					fw.assertTruthy(lib.someProperty(bar, function(value, name, obj){
+						return name=='y' && obj[name]==value && this == obj && obj == bar;}, bar));
+					fw.assertFalsy(lib.someProperty(bar, function(value, name, obj){
+						return obj[name] != value || this[name] != value || name == 'x';}, bar));
+
+					// Map
+					var mappedBar=lib.mapProperties(bar, function(value, name, obj){
+						return (bar==obj && bar==this)?name+'_'+value:'';}, bar);
+					fw.assertEqual('y_bar', mappedBar.y);
+					fw.assertEqual('z_boofar', mappedBar.z);
+					fw.assertFalsy(mappedBar.x);
+
+					// Filter
+					var filteredBar=lib.filterProperties(bar, function(value, name, obj){
+						return obj[name]==value && obj==bar && this==bar && name=='z';}, bar);
+					fw.assertEqual('boofar', filteredBar.z);
+					fw.assertTruthy(typeof filteredBar.y=='undefined');
+
+					// For each
+					var forEachBar={};
+					lib.forEachProperty(bar, function(value, name, obj){
+						if (this==obj && this==bar && obj[name]==value){
+							forEachBar[name]=value;}}, bar);
+					fw.assertEqual('bar', forEachBar.y);
+					fw.assertEqual('boofar', forEachBar.z);
+					fw.assertFalsy(forEachBar.hasOwnProperty('x'));},
+				'description':'Object functions: every, filter, forEach, map, some',
+				'functions':['everyProperty', 'someProperty', 'mapProperties', 'filterProperties', 'forEachProperty']}
 					
 		];}
 
