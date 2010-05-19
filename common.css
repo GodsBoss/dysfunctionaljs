@@ -1,3 +1,8 @@
+a[title],
+abbr[title],
+acronym[title]{
+	cursor:help;}
+
 .results ul,
 .results li,
 .results p{
