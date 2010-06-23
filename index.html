@@ -158,9 +158,11 @@
 <dt><a href="#misc-functions">Miscellaneous functions</a></dt>
 <dd>
 <ul>
+<li><a href="#function-fThrow"><code>fThrow</code></a></li>
 <li><a href="#function-id"><code>id</code></a></li>
 <li><a href="#function-loop"><code>loop</code></a></li>
 <li><a href="#function-noOp"><code>noOp</code></a></li>
+<li><a href="#function-tryCatch"><code>tryCatch</code></a></li>
 <li><a href="#function-until"><code>until</code></a></li>
 </ul>
 </dd>
@@ -389,12 +391,16 @@ This is an object version of <a href="#function-some"><code>some</code></a>.</dd
 <div id="misc-functions" class="subsection">
 <h3>Miscellaneous functions</h3>
 <dl>
+<dt id="function-fThrow"><code>fThrow(<var>exception</var>)</code></dt>
+<dd>Functification of <code>throw</code>. Throws <var>exception</var>.</dd>
 <dt id="function-id"><code>id(<var>value</var>)</code></dt>
 <dd>Identity function. Returns the <var>value</var> given.</dd>
 <dt id="function-loop"><code>loop(<var>condition</var>, <var>action</var> [, <var>context</var>])</dt>
 <dd>Functionified loop. As long as the return value of <var>condition</var> is truthy, <var>action</var> will be called. For both, the <code>this</code> value is <var>context</var>, if given.</dd>
 <dt id="function-noOp"><code>noOp()</code></dt>
 <dd>Does nothing, returns nothing.</dd>
+<dt id="function-tryCatch"><code>tryCatch(<var>tryBlock</var>, <var>catchBlock</var> [, <var>finallyBlock</var>])</code></dt>
+<dd>Functionified <code>try</code>/<code>catch</code>/<code>finally</code>. Tries to execute the <var>tryBlock</var>. If this throws an exception, the <var>catchBlock</var> is executed with one argument, which is the exception thrown by the <var>tryBlock</var>. The <var>finallyBlock</var>, if given, will be executed either way. If the <var>catchBlock</var> throws an exception, it will be thrown in the end (no return value). If not, the return value is the result of the <var>finallyBlock</var>, if given. Else, if is either the return value of the <var>tryBlock</var> (if no exception occured) or the return value of the <var>catchBlock</var>. The <var>finallyBlock</var> must not throw an exception!</dd>
 <dt id="function-until"><code>until(<var>condition</var>, <var>action</var> [, <var>context</var>])</dt>
 <dd>Functionified loop. As long as the return value of <var>condition</var> is falsy, <var>action</var> will be called. For both, the <code>this</code> value is <var>context</var>, if given.</dd>
 </dl>
@@ -466,6 +472,7 @@ This is an object version of <a href="#function-some"><code>some</code></a>.</dd
 <li><a href="#function-everyProperty"><code>everyProperty</code></li>
 <li><a href="#function-filter"><code>filter</code></a></li>
 <li><a href="#function-filterProperties"><code>filterProperties</code></a></li>
+<li><a href="#function-fThrow"><code>fThrow</code></a></li>
 <li><a href="#function-geometricMean"><code>geometricMean</code></a></li>
 <li><a href="#function-harmonicMean"><code>harmonicMean</code></a></li>
 <li><a href="#function-ifElse"><code>ifElse</code></a></li>
@@ -483,6 +490,7 @@ This is an object version of <a href="#function-some"><code>some</code></a>.</dd
 <li><a href="#function-forEach"><code>forEach</code></a></li>
 <li><a href="#function-forEachProperty"><code>forEachProperty</code></a></li>
 <li><a href="#function-loop"><code>loop</code></a></li>
+<li><a href="#function-tryCatch"><code>tryCatch</code></a></li>
 <li><a href="#function-until"><code>until</code></a></li>
 </ul>
 <h4>Impure</h4>

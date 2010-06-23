@@ -672,6 +672,39 @@ var dysfunctional=(function(){
 		return result;}
 
 	/**
+	* Throws the given exception.
+	*
+	* @param mixed exception
+	* @throws mixed
+	*/
+	function fThrow(exception){
+		throw exception;}
+
+	/**
+	* Functification of try/catch/finally.
+	*
+	* @param function tryBlock
+	* @param function catchBlock
+	* @param function finallyBlock (optional)
+	* @return mixed
+	* @throws mixed
+	*/
+	function tryCatch(tryBlock, catchBlock, finallyBlock){
+		var result;
+		try{
+			result=tryBlock();}
+		catch(tryException){
+			try{
+				result=catchBlock(tryException);}
+			catch(catchException){
+				if (finallyBlock){
+					finallyBlock();}
+				throw catchException;}}
+		if (finallyBlock){
+			result=finallyBlock();}
+		return result;}
+
+	/**
 	* Returns true, if the number is odd, else false.
 	*
 	* @param number n
@@ -955,6 +988,7 @@ var dysfunctional=(function(){
 	lib.first=first;
 	lib.forEach=forEach;
 	lib.forEachProperty=forEachProperty;
+	lib.fThrow=fThrow;
 	lib.generator=generator;
 	lib.geometricMean=geometricMean;
 	lib.gt=gt;
@@ -1002,6 +1036,7 @@ var dysfunctional=(function(){
 	lib.sum=sum;
 	lib.tail=tail;
 	lib.trim=trim;
+	lib.tryCatch=tryCatch;
 	lib.until=until;
 	lib.values=values;
 	lib.xnor=xnor;
