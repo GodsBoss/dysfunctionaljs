@@ -90,7 +90,23 @@ var TestFramework=(function(){
 						message:msg||''});}}};
 
 		/**
-		* Asserts the euqalness of two arrays.
+		* Asserts wether execution runs without throwing an exception.
+		* @param function fn Function which is run.
+		* @param string msg (optional)
+		*/
+		this.assertNoException=function(fn, msg){
+			try{
+				fn();
+				out({success:true});}
+			catch(e){
+				out({
+					success:false,
+					expected:'No exception.',
+					instead:'Got exception: '+objToStr.call(e),
+					message:msg||''});}};
+
+		/**
+		* Asserts the equalness of two arrays.
 		* @param array expected
 		* @param array real
 		* @param string msg (optional)
