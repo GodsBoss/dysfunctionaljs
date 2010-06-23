@@ -588,6 +588,8 @@ var dysfunctional=(function(){
 	function median(values, comparator){
 		if (!values.length){
 			throw new TypeError('Median can only be calculated with at least one value.');}
+		if (!comparator){
+			comparator=lt;}
 		var temp=toArray(values);
 		temp.sort(comparator);
 		return temp[Math.floor(temp.length/2)];}
