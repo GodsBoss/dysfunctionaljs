@@ -384,7 +384,7 @@ function runTests(lib){
 					var arM=lib.arithmeticMean(data);
 					var geoM=lib.geometricMean(data);
 					var harM=lib.harmonicMean(data);
-					fw.assertTruthy(med==3||med==4, 'Median (standard).');
+					fw.assertTruthy(med==3||med==4, 'Median (standard), should be 3 or 4, was '+med+'.');
 					fw.assertTruthy(arM==4.375, 'Arithmetic mean (standard).');
 					fw.assertTruthy(geoM>=3.2383 && geoM<=3.239, 'Geometric mean (standard).');
 					fw.assertTruthy(harM>=2.31 && harM<=2.311, 'Harmonic mean (standard).');
@@ -394,7 +394,7 @@ function runTests(lib){
 					var cArM=lib.arithmeticMean(data, lib.add, lib.divide);
 					var cGeoM=lib.geometricMean(data, lib.multiply, Math.pow);
 					var cHarM=lib.harmonicMean(data, lib.add, lib.divide, 1);
-					fw.assertTruthy(cMed==3||cMed==4, 'Median (custom functions).');
+					fw.assertTruthy(cMed==3||cMed==4, 'Median (custom functions), should be 3 or 4, was '+med+'.');
 					fw.assertTruthy(cArM==4.375, 'Arithmetic mean (custom functions).');
 					fw.assertTruthy(cGeoM>=3.2383 && cGeoM<=3.239, 'Geometric mean (custom functions).');
 					fw.assertTruthy(cHarM>=2.31 && cHarM<=2.311, 'Harmonic mean (custom functions).');
