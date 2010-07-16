@@ -15,7 +15,7 @@
 <div id="spirit" class="section">
 <h2>Spirit</h2>
 <p>The library is mostly functional, but provides optional prototypal extensions of <code>Array</code>, <code>Boolean</code>, <abbr title="et cetera">etc.</abbr> (but not <code>Object</code>). The namespace is flat, there is no <code>library.module.submodule.evenmorsubmodule.RandomClass.property</code> madness. All exposed functions can be found directly as properties of the library. If you think "dysfunctional" is a long name, just rename it, it should be easy.</p>
-<p>I try to make dysfunctional.JS as pure as possible, <abbr id="id est">i.e.</abbr> the functions should have very few side effects and create new objects, functions or whatever instead.</p>
+<p>I try to make dysfunctional.JS as pure as possible, <abbr title="id est">i.e.</abbr> the functions should have very few side effects and create new objects, functions or whatever instead.</p>
 <h3>Pureness</h3>
 <p>A function is called “pure” if it does not have any side effects, meaning its arguments and its environment remains unchanged after execution, and “impure” if not. However, there are functions, namely <code>forEach</code>, which happen to just call other functions but do not return a result value. Although they are pure themselves, without an impure function to be called they are meaningless, so a call usually means there <em>are</em> side effects. Additionally, many other pure functions also call other functions, which may or may be not pure. Summarized, these are the kinds of functions the library contains:</p>
 <dl>
@@ -108,6 +108,7 @@
 </ul>
 </dd>
 <dt><a href="#math-functions">Math functions</a></dt>
+<dd>
 <ul>
 <li><a href="#function-arithmeticMean"><code>arithmeticMean</code></a></li>
 <li><a href="#function-geometricMean"><code>geometricMean</code></a></li>
@@ -115,6 +116,7 @@
 <li><a href="#function-median"><code>median</code></a></li>
 <li><a href="#function-random"><code>random</code></a></li>
 </ul>
+</dd>
 <dt><a href="#number-functions">Number functions</a></dt>
 <dd>
 <ul>
@@ -154,9 +156,11 @@
 </dd>
 <dt><a href="#string-functions">String functions</a></dt>
 <dd>
+<ul>
 <li><a href="#function-ltrim"><code>ltrim</code></a></li>
 <li><a href="#function-rtrim"><code>rtrim</code></a></li>
 <li><a href="#function-trim"><code>trim</code></a></li>
+</ul>
 </dd>
 <dt><a href="#misc-functions">Miscellaneous functions</a></dt>
 <dd>
@@ -196,7 +200,7 @@
 <dd>Returns the index of the first appearance of <var>value</var> within <var>arr</var>, or <code>-1</code>, if that value does not exist within <var>arr</var>. The search will start at <var>startIndex</var> or at <code>0</code>, if <var>startIndex</var> is not given.</dd>
 <dt id="function-last"><code>last(<var>arr</var>)</code></dt>
 <dd>Returns the last element of <var>arr</var>. Throws a TypeError, if the array is empty.</dd>
-<dt id="function-lastIndexOf"><code>lastIndexOf(<var>arr</var>, <var>value</var> [, <var>startIndex</var>])</code><dt>
+<dt id="function-lastIndexOf"><code>lastIndexOf(<var>arr</var>, <var>value</var> [, <var>startIndex</var>])</code></dt>
 <dd>Returns the index of the last appearance of <var>value</var> within <var>arr</var>, or <code>-1</code>, if that value does not exist within <var>arr</var>. The search will start at <var>startIndex</var> or, if it is missing, at <code><var>arr</var>.length</code>.</dd>
 <dt id="function-map"><code>map(<var>arr</var>, <var>func</var> [, <var>context</var>)</code></dt>
 <dd>Creates a new array by applying <var>func</var> to all elements of <var>arr</var> with <var>context</var> as <code>this</code> value and collecting the results. Roughly equivalent to <code><var>arr</var>.map(<var>func</var>, <var>context</var>)</code>.</dd>
@@ -219,9 +223,9 @@
 <dd>Returns <code>true</code>, if both <var>left</var> and <var>right</var> are truthy, else <code>false</code>.</dd>
 <dt id="function-ifElse"><code>ifElse(<var>b</var>, <var>fIf</var>, <var>fElse</var> [, <var>context</var>])</code></dt>
 <dd>If <var>b</var> is truthy, <var>fIf</var> is called, else <var>fElse</var>. If <var>context</var> is given, it's the <code>this</code> value of the function. The return value is the return value of the called function.</dd>
-<dt id="function-nand"><code>nand(<var>left</var>, <var>right</var>)</code></dd>
+<dt id="function-nand"><code>nand(<var>left</var>, <var>right</var>)</code></dt>
 <dd>Returns <code>true</code>, if at least one of the arguments is falsy, else <code>false</code>.</dd>
-<dt id="function-nor"><code>nor(<var>left</var>, <var>right</var>)</code></dd>
+<dt id="function-nor"><code>nor(<var>left</var>, <var>right</var>)</code></dt>
 <dd>Returns <code>true</code>, if both <var>left</var> and <var>right</var> are falsy, else <code>false</code>.</dd>
 <dt id="function-not"><code>not(<var>b</var>)</code></dt>
 <dd>Returns <code>!<var>b</var></code>.</dd>
@@ -326,7 +330,7 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <dd>Returns <code>1/<var>x</var></code>.</dd>
 <dt id="function-sgn"><code>sgn(<var>x</var>)</code></dt>
 <dd>Returns the signum of <var>x</var>, either <code>-1</code> (if negative), <code>0</code> (if zero) or <code>1</code> (if positive).</dd>
-<dt id="function-subtract"><code>subtract(<var>a</var>, <var>b</var>)</code><dt>
+<dt id="function-subtract"><code>subtract(<var>a</var>, <var>b</var>)</code></dt>
 <dd>Subtracts <var>b</var> from <var>a</var> and returns the result.</dd>
 <dt id="function-sum"><code>sum(<var>n*</var>)</code></dt>
 <dd>Returns the sum of all arguments. If no arguments were provided, <code>0</code> is returned.</dd>
@@ -404,13 +408,13 @@ This is an object version of <a href="#function-some"><code>some</code></a>.</dd
 <dd>Functification of <code>throw</code>. Throws <var>exception</var>.</dd>
 <dt id="function-id"><code>id(<var>value</var>)</code></dt>
 <dd>Identity function. Returns the <var>value</var> given.</dd>
-<dt id="function-loop"><code>loop(<var>condition</var>, <var>action</var> [, <var>context</var>])</dt>
+<dt id="function-loop"><code>loop(<var>condition</var>, <var>action</var> [, <var>context</var>])</code></dt>
 <dd>Functionified loop. As long as the return value of <var>condition</var> is truthy, <var>action</var> will be called. For both, the <code>this</code> value is <var>context</var>, if given.</dd>
 <dt id="function-noOp"><code>noOp()</code></dt>
 <dd>Does nothing, returns nothing.</dd>
 <dt id="function-tryCatch"><code>tryCatch(<var>tryBlock</var>, <var>catchBlock</var> [, <var>finallyBlock</var>])</code></dt>
 <dd>Functionified <code>try</code>/<code>catch</code>/<code>finally</code>. Tries to execute the <var>tryBlock</var>. If this throws an exception, the <var>catchBlock</var> is executed with one argument, which is the exception thrown by the <var>tryBlock</var>. The <var>finallyBlock</var>, if given, will be executed either way. If the <var>catchBlock</var> throws an exception, it will be thrown in the end (no return value). If not, the return value is the result of the <var>finallyBlock</var>, if given. Else, if is either the return value of the <var>tryBlock</var> (if no exception occured) or the return value of the <var>catchBlock</var>. The <var>finallyBlock</var> must not throw an exception!</dd>
-<dt id="function-until"><code>until(<var>condition</var>, <var>action</var> [, <var>context</var>])</dt>
+<dt id="function-until"><code>until(<var>condition</var>, <var>action</var> [, <var>context</var>])</code></dt>
 <dd>Functionified loop. As long as the return value of <var>condition</var> is falsy, <var>action</var> will be called. For both, the <code>this</code> value is <var>context</var>, if given.</dd>
 </dl>
 </div>
@@ -481,7 +485,7 @@ This is an object version of <a href="#function-some"><code>some</code></a>.</dd
 <ul>
 <li><a href="#function-arithmeticMean"><code>arithmeticMean</code></a></li>
 <li><a href="#function-every"><code>every</code></a></li>
-<li><a href="#function-everyProperty"><code>everyProperty</code></li>
+<li><a href="#function-everyProperty"><code>everyProperty</code></a></li>
 <li><a href="#function-filter"><code>filter</code></a></li>
 <li><a href="#function-filterProperties"><code>filterProperties</code></a></li>
 <li><a href="#function-fThrow"><code>fThrow</code></a></li>
