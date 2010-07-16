@@ -18,6 +18,56 @@ var dysfunctional=(function(){
 	var slice=Array.prototype.slice;
 
 	/**
+	* Returns n modulo mod. Always positive.
+	* @param integer n
+	* @param integer mod
+	* @return integer
+	*/
+	function modulo(n, mod){
+		var result=n%mod;
+		return result>=0?result:result+Math.abs(mod);}
+
+	/**
+	* Returns the signum of n.
+	* @param number n
+	* @return integer
+	*/
+	function sgn(n){
+		if (n<0){
+			return -1;}
+		else if(n>0){
+			return 1;}
+		else{
+			return 0;}}
+
+	/**
+	* Works similar to python's range function.
+	* @param integer arg1 (optional)
+	* @param integer arg2
+	* @param integer arg3 (optional)
+	* @return array
+	*/
+	function range(arg1, arg2, arg3){
+		var start, stop, step;
+		if (arguments.length<3){
+			step=1;}
+		else{
+			step=arg3;}
+		if (arguments.length<2){
+			start=0;
+			if (arguments.length<1){
+				stop=0;}
+			else{
+				stop=arg1;}}
+		else{
+			start=arg1;
+			stop=arg2;}
+		var result=[];
+		for(var i=start;sgn(step)>0?i<stop:i>stop;i+=step){
+			result.push(i);}
+		return result;}
+
+	/**
 	* Returns a random integer from min to max.
 	* @param integer min
 	* @param integer max
@@ -1015,6 +1065,7 @@ var dysfunctional=(function(){
 	lib.mapProperties=mapProperties;
 	lib.median=median;
 	lib.merge=merge;
+	lib.modulo=modulo;
 	lib.multiply=multiply;
 	lib.negate=negate;
 	lib.nand=nand;
@@ -1027,10 +1078,12 @@ var dysfunctional=(function(){
 	lib.or=or;
 	lib.product=product;
 	lib.random=random;
+	lib.range=range;
 	lib.reciprocal=reciprocal;
 	lib.reduce=reduce;
 	lib.reduceRight=reduceRight;
 	lib.rtrim=rtrim;
+	lib.sgn=sgn;
 	lib.some=some;
 	lib.someProperty=someProperty;
 	lib.subtract=subtract;

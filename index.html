@@ -68,6 +68,7 @@
 <li><a href="#function-last"><code>last</code></a></li>
 <li><a href="#function-lastIndexOf"><code>lastIndexOf</code></a></li>
 <li><a href="#function-map"><code>map</code></a></li>
+<li><a href="#function-range"><code>range</code></a></li>
 <li><a href="#function-reduce"><code>reduce</code></a></li>
 <li><a href="#function-reduceRight"><code>reduceRight</code></a></li>
 <li><a href="#function-some"><code>some</code></a></li>
@@ -125,12 +126,14 @@
 <li><a href="#function-ifSgn"><code>ifSgn</code></a></li>
 <li><a href="#function-lt"><code>lt</code></a></li>
 <li><a href="#function-lte"><code>lte</code></a></li>
+<li><a href="#function-modulo"><code>modulo</code></a></li>
 <li><a href="#function-multiply"><code>multiply</code></a></li>
 <li><a href="#function-negate"><code>negate</code></a></li>
 <li><a href="#function-odd"><code>odd</code></a></li>
 <li><a href="#function-opIfSgn"><code>opIfSgn</code></a></li>
 <li><a href="#function-product"><code>product</code></a></li>
 <li><a href="#function-reciprocal"><code>reciprocal</code></a></li>
+<li><a href="#function-sgn"><code>sgn</code></a></li>
 <li><a href="#function-subtract"><code>subtract</code></a></li>
 <li><a href="#function-sum"><code>sum</code></a></li>
 </ul>
@@ -197,6 +200,8 @@
 <dd>Returns the index of the last appearance of <var>value</var> within <var>arr</var>, or <code>-1</code>, if that value does not exist within <var>arr</var>. The search will start at <var>startIndex</var> or, if it is missing, at <code><var>arr</var>.length</code>.</dd>
 <dt id="function-map"><code>map(<var>arr</var>, <var>func</var> [, <var>context</var>)</code></dt>
 <dd>Creates a new array by applying <var>func</var> to all elements of <var>arr</var> with <var>context</var> as <code>this</code> value and collecting the results. Roughly equivalent to <code><var>arr</var>.map(<var>func</var>, <var>context</var>)</code>.</dd>
+<dt id="function-range"><code>range([<var>start</var>, ] <var>stop</var> [, <var>step</var>])</code></dt>
+<dd>Works similar to <a href="http://www.python.org/">Python</a>'s <a href="http://docs.python.org/release/2.6.5/library/functions.html#range"><code>range</code></a> function. Creates an array from <var>start</var> to <var>stop</var> with distance <var>step</var>. If <var>step</var> is omitted, a default value of <code>1</code> is used, if additionally <var>start</var> is omitted, a default value of <code>0</code> is assumed. <var>step</var> may be negative.</dd>
 <dt id="function-reduce"><code>reduce(<var>arr</var>, <var>func</var> [, <var>startValue</var>])</code></dt>
 <dd>Reduces the values of <var>arr</var> via successive calls to <var>func</var> to a result and returns it. The array is processed from start (index 0) to end (index <code><var>arr</var>.length-1</code>). Roughly equivalent to <code><var>arr</var>.reduce(<var>func</var>, <var>startValue</var>)</code>.</dd>
 <dt id="function-reduceRight"><code>reduceRight(<var>arr</var> [, <var>startValue</var>])</code></dt>
@@ -300,6 +305,8 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <dd><p>Returns <code>true</code>, if <var>left</var> is lesser than <var>right</var>, and <code>false</code>, if not.</p></dd>
 <dt id="function-lte"><code>lte(<var>left</var>, <var>right</var>)</code></dt>
 <dd><p>Returns <code>true</code>, if <var>left</var> is lesser than or equals <var>right</var>, and <code>false</code>, if not.</p></dd>
+<dt id="function-modulo"><code>modulo(<var>n</var>, <var>mod</var>)</code></dt>
+<dd>Functification of the modulo operator (<code>%</code>). Unlike the builtin JavaScript operator, the function never returns a negative number, even if <var>n</var> is lesser than zero.</dd>
 <dt id="function-multiply"><code>multiply(<var>a</var>, <var>b</var>)</code></dt>
 <dd>Multiplies <var>a</var> and <var>b</var> and returns the result.</dd>
 <dt id="function-negate"><code>negate(<var>x</var>)</code></dt>
@@ -317,6 +324,8 @@ If <var>context</var> is given, it is used as the function’s <code>this</code>
 <dd>Multiplies all arguments and returns the result. If no arguments were provided, <code>1</code> is returned.</dd>
 <dt id="function-reciprocal"><code>reciprocal(<var>x</var>)</code></dt>
 <dd>Returns <code>1/<var>x</var></code>.</dd>
+<dt id="function-sgn"><code>sgn(<var>x</var>)</code></dt>
+<dd>Returns the signum of <var>x</var>, either <code>-1</code> (if negative), <code>0</code> (if zero) or <code>1</code> (if positive).</dd>
 <dt id="function-subtract"><code>subtract(<var>a</var>, <var>b</var>)</code><dt>
 <dd>Subtracts <var>b</var> from <var>a</var> and returns the result.</dd>
 <dt id="function-sum"><code>sum(<var>n*</var>)</code></dt>
@@ -444,6 +453,7 @@ This is an object version of <a href="#function-some"><code>some</code></a>.</dd
 <li><a href="#function-lte"><code>lte</code></a></li>
 <li><a href="#function-ltrim"><code>ltrim</code></a></li>
 <li><a href="#function-merge"><code>merge</code></a></li>
+<li><a href="#function-modulo"><code>modulo</code></a></li>
 <li><a href="#function-multiply"><code>multiply</code></a></li>
 <li><a href="#function-nand"><code>nand</code></a></li>
 <li><a href="#function-negate"><code>negate</code></a></li>
@@ -455,8 +465,10 @@ This is an object version of <a href="#function-some"><code>some</code></a>.</dd
 <li><a href="#function-opIfSgn"><code>opIfSgn</code></a></li>
 <li><a href="#function-or"><code>or</code></a></li>
 <li><a href="#function-product"><code>product</code></a></li>
+<li><a href="#function-range"><code>range</code></a></li>
 <li><a href="#function-reciprocal"><code>reciprocal</code></a></li>
 <li><a href="#function-rtrim"><code>rtrim</code></a></li>
+<li><a href="#function-sgn"><code>sgn</code></a></li>
 <li><a href="#function-subtract"><code>subtract</code></a></li>
 <li><a href="#function-sum"><code>sum</code></a></li>
 <li><a href="#function-tail"><code>tail</code></a></li>

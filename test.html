@@ -590,11 +590,43 @@ function runTests(lib){
 					afterExecution(true, true, false);
 
 					fw.assertException(function(){lib.tryCatch(throwInTryBlock, throwInCatchBlock, returnFinally())}, catchError);
-					afterExecution(true, true, true);
-				},
+					afterExecution(true, true, true);},
 				'description':'Functification of exception handling.',
-				'functions':['fThrow', 'tryCatch']}
-					
+				'functions':['fThrow', 'tryCatch']},
+			{
+				'test':function(fw){
+					fw.assertEqualArrays([], lib.range());
+					fw.assertEqualArrays([0, 1, 2, 3, 4], lib.range(5));
+					fw.assertEqualArrays([], lib.range(0));
+					fw.assertEqualArrays([], lib.range(-200));
+					fw.assertEqualArrays([2, 3, 4], lib.range(2, 5));
+					fw.assertEqualArrays([], lib.range(4, 1));
+					fw.assertEqualArrays([], lib.range(2, 2));
+					fw.assertEqualArrays([3, 5, 7], lib.range(3, 8, 2));
+					fw.assertEqualArrays([6, 5, 4], lib.range(6, 3, -1));
+					fw.assertEqualArrays([], lib.range(4, 4, 2), '4, 4, 2');
+					fw.assertEqualArrays([], lib.range(4, 4, -2), '4, 4, -2');
+					fw.assertEqualArrays([3], lib.range(3, 5, 3), '3, 5, 3');
+					fw.assertEqualArrays([5], lib.range(5, 3, -3), '5, 3, -3');},
+				'description':'Range function.',
+				'functions':['range']},
+			{
+				'test':function(fw){
+					fw.assertEqual(-1, lib.sgn(-5));
+					fw.assertEqual(0, lib.sgn(0));
+					fw.assertEqual(1, lib.sgn(20));},
+				'description':'Signum.',
+				'functions':['sgn']},
+			{
+				'test':function(fw){
+					fw.assertEqual(0, lib.modulo(6, 3));
+					fw.assertEqual(2, lib.modulo(7, 5));
+					fw.assertEqual(2, lib.modulo(2, 5));
+					fw.assertEqual(2, lib.modulo(7, -5));
+					fw.assertEqual(3, lib.modulo(-2, -5), '-2, -5');
+					fw.assertEqual(3, lib.modulo(-7, -5), '-7, -5');},
+				'description':'Modulo',
+				'functions':['modulo']}
 		];}
 
 	var tests=getTests();
