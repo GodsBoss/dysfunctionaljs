@@ -534,6 +534,7 @@ function runTests(lib){
 					var tryRan=false;
 					var catchRan=false;
 					var finallyRan=false;
+					var elseRan=false;
 
 					var tryError=new Error('try');
 					var catchError=new Error('catch');
@@ -541,7 +542,8 @@ function runTests(lib){
 					function resetRan(){
 						tryRan=false;
 						catchRan=false;
-						finallyRan=false;}
+						finallyRan=false;
+						elseRan=false;}
 
 					function throwInTryBlock(){
 						tryRan=true;
@@ -563,34 +565,50 @@ function runTests(lib){
 						finallyRan=true;
 						return 'finally';}
 
-					function assertRan(ranTry, ranCatch, ranFinally){
-						ranTry?fw.assertTruthy(tryRan):fw.assertFalsy(tryRan);
-						ranCatch?fw.assertTruthy(catchRan):fw.assertFalsy(catchRan);
-						ranFinally?fw.assertTruthy(finallyRan):fw.assertFalsy(finallyRan);}
+					function runElse(){
+						elseRan=true;}
 
-					function afterExecution(t, c, f){
-						assertRan(t, c, f);
+					function assertRan(ranTry, ranCatch, ranFinally, ranElse){
+						function s(what, expectedValue){
+							return expectedValue?
+								'Expected '+what+' block to run, but it did not.':
+								'Expected '+what+' block not to run, but it did.';}
+						ranTry?fw.assertTruthy(tryRan, s('try', true)):fw.assertFalsy(tryRan, s('try', false));
+						ranCatch?fw.assertTruthy(catchRan, s('catch', true)):fw.assertFalsy(catchRan, s('catch', false));
+						ranFinally?fw.assertTruthy(finallyRan, s('finally', true)):fw.assertFalsy(finallyRan, s('finally', false));
+						ranElse?fw.assertTruthy(elseRan, s('else', true)):fw.assertFalsy(elseRan, s('else', false));}
+
+					function afterExecution(t, c, f, e){
+						assertRan(t, c, f,e );
 						resetRan();}
 
 					fw.assertException(function(){lib.fThrow('foobar_exception');}, 'foobar_exception');
 
 					fw.assertEqual(lib.tryCatch(returnTry, returnCatch), returnTry());
-					afterExecution(true, false, false);
+					afterExecution(true, false, false, false);
 
 					fw.assertEqual(lib.tryCatch(throwInTryBlock, returnCatch), returnCatch());
-					afterExecution(true, true, false);
+					afterExecution(true, true, false, false);
 
 					fw.assertEqual(lib.tryCatch(returnTry, returnCatch, returnFinally), returnFinally());
-					afterExecution(true, false, true);
+					afterExecution(true, false, true, false);
 
 					fw.assertEqual(lib.tryCatch(throwInTryBlock, returnCatch, returnFinally), returnFinally());
-					afterExecution(true, true, true);
+					afterExecution(true, true, true, false);
 
-					fw.assertException(function(){lib.tryCatch(throwInTryBlock, throwInCatchBlock);}, catchError);
-					afterExecution(true, true, false);
+					fw.assertException(function(){
+						lib.tryCatch(throwInTryBlock, throwInCatchBlock);}, catchError);
+					afterExecution(true, true, false, false);
 
-					fw.assertException(function(){lib.tryCatch(throwInTryBlock, throwInCatchBlock, returnFinally())}, catchError);
-					afterExecution(true, true, true);},
+					fw.assertException(function(){
+						lib.tryCatch(throwInTryBlock, throwInCatchBlock, returnFinally())}, catchError);
+					afterExecution(true, true, true, false);
+
+					fw.assertEqual(lib.tryCatch(returnTry, returnCatch, returnFinally, runElse), returnFinally());
+					afterExecution(true, false, true, true);
+
+					fw.assertEqual(lib.tryCatch(throwInTryBlock, returnCatch, returnFinally, runElse), returnFinally());
+					afterExecution(true, true, true, false);},
 				'description':'Functification of exception handling.',
 				'functions':['fThrow', 'tryCatch']},
 			{

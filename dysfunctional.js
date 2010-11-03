@@ -737,13 +737,16 @@ var dysfunctional=(function(){
 	* @param function tryBlock
 	* @param function catchBlock
 	* @param function finallyBlock (optional)
+	* @param function elseBlock (optional)
 	* @return mixed
 	* @throws mixed
 	*/
-	function tryCatch(tryBlock, catchBlock, finallyBlock){
+	function tryCatch(tryBlock, catchBlock, finallyBlock, elseBlock){
 		var result;
 		try{
-			result=tryBlock();}
+			result=tryBlock();
+			if (elseBlock){
+				elseBlock();}}
 		catch(tryException){
 			try{
 				result=catchBlock(tryException);}
