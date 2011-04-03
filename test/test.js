@@ -19,7 +19,8 @@
 var TestFramework=(function(){
 
 	// Shortcut.
-	var objToStr=Object.prototype.toString;
+	var objToStr=function(o){
+		return Object.prototype.toString.call(o);};
 
 	/**
 	* Test runner constructor.
@@ -70,7 +71,7 @@ var TestFramework=(function(){
 		* @param string msg (optional)
 		*/
 		this.assertException=function(fn, exception, msg){
-			var excStr=objToStr.call(exception);
+			var excStr=objToStr(exception);
 			try{
 				fn();
 				out({
@@ -79,7 +80,7 @@ var TestFramework=(function(){
 					instead:'No exception.',
 					message:msg||''});}
 			catch(e){
-				var realExcStr=objToStr.call(e);
+				var realExcStr=objToStr(e);
 				if (realExcStr==excStr){
 					out({success:true});}
 				else{
@@ -102,7 +103,7 @@ var TestFramework=(function(){
 				out({
 					success:false,
 					expected:'No exception.',
-					instead:'Got exception: '+objToStr.call(e),
+					instead:'Got exception: '+objToStr(e),
 					message:msg||''});}};
 
 		/**
