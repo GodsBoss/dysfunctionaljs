@@ -33,12 +33,7 @@ var dysfunctional=(function(){
 	* @return integer
 	*/
 	function sgn(n){
-		if (n<0){
-			return -1;}
-		else if(n>0){
-			return 1;}
-		else{
-			return 0;}}
+		return n<0?-1:(n>0?1:0);}
 
 	/**
 	* Works similar to python's range function.
