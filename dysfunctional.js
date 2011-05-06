@@ -625,9 +625,7 @@ var dysfunctional=(function(){
 	* @throws TypeError if no values were given.
 	*/
 	function arithmeticMean(values, pAdd, pDiv){
-		pAdd=pAdd||add;
-		pDiv=pDiv||divide;
-		return pDiv(reduce(values, pAdd), values.length);}
+		return (pDiv||divide)(reduce(values, pAdd||add), values.length);}
 
 	/**
 	* Returns the geometric mean of the values.
@@ -638,9 +636,7 @@ var dysfunctional=(function(){
 	* @throws TypeError if no values were given.
 	*/
 	function geometricMean(values, pMul, pExp){
-		pMul=pMul||multiply;
-		pExp=pExp||Math.pow;
-		return pExp(reduce(values, pMul), 1/values.length);}
+		return (pExp||Math.pow)(reduce(values, pMul||multiply), 1/values.length);}
 
 	/**
 	* Returns the harmonic mean of the values.
