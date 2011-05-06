@@ -579,7 +579,7 @@ var dysfunctional=(function(){
 	* @return array
 	*/
 	function head(a, n){
-		return typeof n==='number'?Array.prototype.slice.call(a, 0, n):[a[0]];}
+		return typeof n==='number'?slice.call(a, 0, n):[a[0]];}
 
 	/**
 	* Returns the last n elements. If n is not given, return the last element as an array.
@@ -588,7 +588,7 @@ var dysfunctional=(function(){
 	* @return array
 	*/
 	function tail(a, n){
-		return typeof n==='number'?Array.prototype.slice.call(a, -n):[a[a.length-1]];}
+		return typeof n==='number'?slice.call(a, -n):[a[a.length-1]];}
 
 	/**
 	* Creates a generator from a start value,
