@@ -47,8 +47,7 @@ var dysfunctional=(function(){
 		var start = argsLength<2?0:arg1;
 		var step = argsLength<3?1:arg3;
 		var stop = argsLength<2?(argsLength<1?0:arg1):arg2;
-		var result=[];
-		for(var i=start;sgn(step)>0?i<stop:i>stop;i+=step){
+		for(var result=[],i=start;sgn(step)>0?i<stop:i>stop;i+=step){
 			result.push(i);}
 		return result;}
 
@@ -198,8 +197,7 @@ var dysfunctional=(function(){
 	* @return array
 	*/
 	function toArray(obj){
-		var result=[];
-		for(var i=0,max=obj.length;i<max;i++){
+		for(var result=[],i=0,max=obj.length;i<max;i++){
 			result[i]=obj[i];}
 		return result;}
 
@@ -265,8 +263,7 @@ var dysfunctional=(function(){
 	* @return object
 	*/
 	function merge(/* objects */){
-		var result={};
-		for (var i=0,l=arguments.length;i<l;i++){
+		for (var result={},i=0,l=arguments.length;i<l;i++){
 			var obj=arguments[i];
 			for (var prop in obj){
 				if (obj.hasOwnProperty(prop)){
@@ -475,8 +472,7 @@ var dysfunctional=(function(){
 	* @return Number
 	*/
 	function sum(/* numbers */){
-		var result=0;
-		for(var i=0,l=arguments.length;i<l;i++){
+		for(var result=0,i=0,l=arguments.length;i<l;i++){
 			result+=arguments[i];}
 		return result;}
 
@@ -486,8 +482,7 @@ var dysfunctional=(function(){
 	* @return Number
 	*/
 	function product(/* numbers */){
-		var result=1;
-		for(var i=0,l=arguments.length;i<l;i++){
+		for(var result=1,i=0,l=arguments.length;i<l;i++){
 			result*=arguments[i];}
 		return result;}
 
@@ -616,8 +611,7 @@ var dysfunctional=(function(){
 	* @return array
 	*/
 	function items(obj /*, names */){
-		var result=[];
-		for(var i=1,l=arguments.length;i<l;i++){
+		for(var result=[],i=1,l=arguments.length;i<l;i++){
 			result.push(obj[arguments[i]]);}
 		return result;}
 
@@ -901,8 +895,7 @@ var dysfunctional=(function(){
 	* @return array
 	*/
 	function map(a, f, context){
-		var result=[];
-		for(var i=0,l=a.length;i<l;i++){
+		for(var result=[],i=0,l=a.length;i<l;i++){
 			result.push(f.call(context, a[i], i, a));}
 		return result;}
 
@@ -917,8 +910,7 @@ var dysfunctional=(function(){
 	* @return array
 	*/
 	function filter(a, f, context){
-		var result=[];
-		for(var i=0,l=a.length;i<l;i++){
+		for(var result=[],i=0,l=a.length;i<l;i++){
 			if(f.call(context, a[i], i, a)){
 				result.push(a[i]);}}
 		return result;}
