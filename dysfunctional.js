@@ -164,9 +164,13 @@ var dysfunctional=(function(){
 	*/
 	function keys(obj, all){
 		var result=[];
-		for(var prop in obj){
-			if (all||obj.hasOwnProperty(prop)){
+		if (all){
+			for(var prop in obj){
 				result.push(prop);}}
+		else{
+			for(var prop in obj){
+				if (obj.hasOwnProperty(prop)){
+					result.push(prop);}}}
 		return result;}
 
 	/**
@@ -178,9 +182,13 @@ var dysfunctional=(function(){
 	*/
 	function values(obj, all){
 		var result=[];
-		for(var prop in obj){
-			if (all|obj.hasOwnProperty(prop)){
+		if (all){
+			for(var prop in obj){
 				result.push(obj[prop]);}}
+		else{
+			for(var prop in obj){
+				if (obj.hasOwnProperty(prop)){
+					result.push(obj[prop]);}}}
 		return result;}
 
 	/**
