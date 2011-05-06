@@ -325,10 +325,7 @@ var dysfunctional=(function(){
 	* @return mixed
 	*/
 	function opIfElse(b, ifValue, elseValue){
-		if(b){
-			return ifValue;}
-		else{
-			return elseValue;}}
+		return b?ifValue:elseValue;}
 
 	/**
 	* Executes a function according to a given value.
@@ -345,10 +342,7 @@ var dysfunctional=(function(){
 	* @return undefined|mixed
 	*/
 	function ifElse(b, fIf, fElse, context){
-		if(b){
-			return fIf.call(context);}
-		else{
-			return fElse.call(context);}}
+		return (b?fIf:fElse).call(context);}
 
 	/**
 	* Not operator.
@@ -498,12 +492,7 @@ var dysfunctional=(function(){
 	* @return mixed
 	*/
 	function ifSgn(x, negF, zeroF, posF, context){
-		if(x<0){
-			return negF.call(context);}
-		if(x==0){
-			return zeroF.call(context);}
-		if(x>0){
-			return posF.call(context);}}
+		return [negF,zeroF,posF][sgn(x)+1].call(context);}
 
 	/**
 	* Returns a value according to the signum of a number.
@@ -515,12 +504,7 @@ var dysfunctional=(function(){
 	* @return mixed
 	*/
 	function opIfSgn(x, negV, zeroV, posV){
-		if (x<0){
-			return negV;}
-		if (x==0){
-			return zeroV;}
-		if (x>0){
-			return posV;}}
+		return [negV,zeroV,posV][sgn(x)+1];}
 
 	/**
 	* Returns the reciprocal of a number.
@@ -672,10 +656,7 @@ var dysfunctional=(function(){
 		unit=(arguments.length>=4?unit:1);
 		var num;
 		var recs=map(values, function(n, i){
-			if (i==0){
-				num=unit;}
-			else{
-				num=pAdd(num, unit);}
+			num=i==0?unit:pAdd(num, unit);
 			return pDiv(unit, n);});
 		return pDiv(num, reduce(recs, pAdd));}
 
@@ -967,15 +948,11 @@ var dysfunctional=(function(){
 	* @throws TypeError
 	*/
 	function reduce(a, f, startValue){
-		if(!a.length && arguments.length<3){
+		var hasNoStartValue=arguments.length<3;
+		if(!a.length && hasNoStartValue){
 			throw new TypeError('Cannot reduce empty array without start value.');}
-		var i, v;
-		if(arguments.length<3){
-			i=1;
-			v=a[0];}
-		else{
-			i=0;
-			v=startValue;}
+		var i=hasNoStartValue?1:0;
+		var v=hasNoStartValue?a[0]:startValue;
 		for(var l=a.length;i<l;i++){
 			v=f(v, a[i], i, a);}
 		return v;}
@@ -996,15 +973,11 @@ var dysfunctional=(function(){
 	* @throws TypeError
 	*/
 	function reduceRight(a, f, startValue){
-		if(!a.length && arguments.length<3){
+		var hasNoStartValue = arguments.length<3;
+		if(!a.length && hasNoStartValue){
 			throw new TypeError('Cannot reduce empty array without start value.');}
-		var i,v;
-		if(arguments.length<3){
-			i=a.length-2;
-			v=a[a.length-1];}
-		else{
-			i=a.length-1;
-			v=startValue;}
+		var i=hasNoStartValue?a.length-2:a.length-1;
+		var v=hasNoStartValue?a[a.length-1]:startValue;
 		for(;i>=0;i--){
 			v=f(v, a[i], i, a);}
 		return v;}
