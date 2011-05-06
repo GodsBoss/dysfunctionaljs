@@ -48,20 +48,10 @@ var dysfunctional=(function(){
 	* @return array
 	*/
 	function range(arg1, arg2, arg3){
-		var start, stop, step;
-		if (arguments.length<3){
-			step=1;}
-		else{
-			step=arg3;}
-		if (arguments.length<2){
-			start=0;
-			if (arguments.length<1){
-				stop=0;}
-			else{
-				stop=arg1;}}
-		else{
-			start=arg1;
-			stop=arg2;}
+		var argsLength = arguments.length;
+		var start = argsLength<2?0:arg1;
+		var step = argsLength<3?1:arg3;
+		var stop = argsLength<2?(argsLength<1?0:arg1):arg2;
 		var result=[];
 		for(var i=start;sgn(step)>0?i<stop:i>stop;i+=step){
 			result.push(i);}
