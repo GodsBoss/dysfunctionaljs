@@ -644,7 +644,17 @@ function runTests(lib){
 					fw.assertEqual(3, lib.modulo(-2, -5), '-2, -5');
 					fw.assertEqual(3, lib.modulo(-7, -5), '-7, -5');},
 				'description':'Modulo',
-				'functions':['modulo']}
+				'functions':['modulo']},
+			{
+				'test':function(fw){
+					var obj = {
+						x: 20,
+						getMultipliedX: function(factor){
+							return factor*this.x;}};
+					var getMX = lib.methodToFunction('getMultipliedX');
+					fw.assertEqual(60, getMX(obj, 3));},
+				'description':'Convert method to function.',
+				'functions':[]}
 		];}
 
 	var tests=getTests();

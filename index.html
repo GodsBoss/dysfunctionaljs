@@ -105,6 +105,7 @@
 <li><a href="#function-curry"><code>curry</code></a></li>
 <li><a href="#function-generator"><code>generator</code></a></li>
 <li><a href="#function-hold"><code>hold</code></a></li>
+<li><a href="#function-methodToFunction"><code>methodToFunction</code></a></li>
 </ul>
 </dd>
 <dt><a href="#math-functions">Math functions</a></dt>
@@ -265,6 +266,8 @@
 <dd>Creates a generator. A generator is a function which is call sequently without arguments and returns a different value (sometimes called ”next“). If <var>extract</var> is not given, <var>id</var> is used instead. The values of the created generator are computed by applying <var>f</var> to the current value (which is <var>startValue</var> in the beginning) and extracting the real return value via <var>extract</var>. <var>f</var> is a function which can take any number of arguments, but <em>must</em> return an array. The <var>startValue</var> must be an array, too, and is not returned on the first execution.</dd>
 <dt id="function-hold"><code>hold(<var>f</var> [, <var>args*</var>])</code></dt>
 <dd>Takes a function <var>f</var> and additional arguments <var>args</var>. Returns a function which calls <var>f</var> with the same <code>this</code> value and the stored arguments (<var>args</var>). The returned function ignores all of their own arguments.</dd>
+<dt id="function-methodToFunction"><code>methodToFunction(<var>name</var>)</code></dt>
+<dd>Creates a new function. This new function takes an object parameter <var>obj</var> and additional arguments. It calls <var>obj</var>'s method name <var>name</var> with <var>obj</var> as <code>this</code>, the additional arguments as arguments and returns the result of that method call.</dd>
 </dl>
 </div>
 <div id="math-functions" class="subsection">
@@ -457,6 +460,7 @@ This is an object version of <a href="#function-some"><code>some</code></a>.</dd
 <li><a href="#function-lte"><code>lte</code></a></li>
 <li><a href="#function-ltrim"><code>ltrim</code></a></li>
 <li><a href="#function-merge"><code>merge</code></a></li>
+<li><a href="#function-methodToFunction"><code>methodToFunction</code></a></li>
 <li><a href="#function-modulo"><code>modulo</code></a></li>
 <li><a href="#function-multiply"><code>multiply</code></a></li>
 <li><a href="#function-nand"><code>nand</code></a></li>

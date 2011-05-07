@@ -978,6 +978,18 @@ var dysfunctional=(function(){
 			v=f(v, a[i], i, a);}
 		return v;}
 
+	/**
+	* Creates a function which calls an object's method.
+	*
+	* @param string name
+	* @return A function which takes an object as the first parameter. The
+	*   function calls the object's method named name with the object as this
+	*   the remaining arguments as arguments.
+	*/
+	function methodToFunction(name){
+		return function(obj){
+			return obj[name].apply(obj, toArray(arguments).slice(1));};}
+
 	// Public API
 	lib.add=add;
 	lib.and=and;
@@ -1022,6 +1034,7 @@ var dysfunctional=(function(){
 	lib.mapProperties=mapProperties;
 	lib.median=median;
 	lib.merge=merge;
+	lib.methodToFunction=methodToFunction;
 	lib.modulo=modulo;
 	lib.multiply=multiply;
 	lib.negate=negate;
